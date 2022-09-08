@@ -1,6 +1,6 @@
 {
   "type": "doiamengineering:add_shader",
-  "addShaderBag": true,
+  "add_shader_bag": true,
   "conditions": [
     {
       "condition": "forge:loot_table_id",

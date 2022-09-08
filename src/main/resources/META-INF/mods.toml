@@ -38,7 +38,7 @@ Create the coveted fiery and ironwood ingots, finally!
 [[dependencies.doiamengineering]]
     modId="twilightforest"
     mandatory=true
-    versionRange="[4.2.1392,)"
+    versionRange="[4.2.1410,)"
     ordering="NONE"
     side="BOTH"
 
