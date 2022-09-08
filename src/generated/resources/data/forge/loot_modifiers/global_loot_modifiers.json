@@ -1,0 +1,14 @@
+{
+  "entries": [
+    "doiamengineering:naga_shader",
+    "doiamengineering:snow_queen_shader",
+    "doiamengineering:hydra_shader",
+    "doiamengineering:lich_shader",
+    "doiamengineering:minoshroom_shader",
+    "doiamengineering:alpha_yeti_shader",
+    "doiamengineering:quest_ram_shader",
+    "doiamengineering:knight_phantom_shader",
+    "doiamengineering:ur_ghast_shader"
+  ],
+  "replace": false
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:plates/knightmetal"
+    },
+    {
+      "item": "immersiveengineering:wirecutter"
+    }
+  ],
+  "result": {
+    "item": "doiamengineering:knightmetal_wire"
+  }
+}

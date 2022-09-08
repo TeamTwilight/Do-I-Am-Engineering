@@ -1,0 +1,14 @@
+{
+  "type": "immersiveengineering:metal_press",
+  "energy": 2400,
+  "input": {
+    "item": "twilightforest:ironwood_ingot"
+  },
+  "mold": "immersiveengineering:mold_wire",
+  "result": {
+    "base_ingredient": {
+      "tag": "forge:wires/ironwood"
+    },
+    "count": 2
+  }
+}

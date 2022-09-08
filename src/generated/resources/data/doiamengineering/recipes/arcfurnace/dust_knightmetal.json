@@ -1,0 +1,14 @@
+{
+  "type": "immersiveengineering:arc_furnace",
+  "additives": [],
+  "energy": 51200,
+  "input": {
+    "item": "doiamengineering:knightmetal_dust"
+  },
+  "results": [
+    {
+      "item": "twilightforest:knightmetal_ingot"
+    }
+  ],
+  "time": 100
+}

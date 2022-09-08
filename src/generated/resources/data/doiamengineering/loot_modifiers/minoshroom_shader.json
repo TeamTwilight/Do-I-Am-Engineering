@@ -1,0 +1,11 @@
+{
+  "type": "doiamengineering:add_shader",
+  "addShaderBag": true,
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "twilightforest:entities/minoshroom"
+    }
+  ],
+  "shader_name": "doiamengineering:minoshroom"
+}

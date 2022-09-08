@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "doiamengineering:ironwood_nugget"
+    },
+    {
+      "item": "doiamengineering:ironwood_nugget"
+    },
+    {
+      "item": "doiamengineering:ironwood_nugget"
+    },
+    {
+      "item": "doiamengineering:ironwood_nugget"
+    },
+    {
+      "item": "doiamengineering:ironwood_nugget"
+    },
+    {
+      "item": "doiamengineering:ironwood_nugget"
+    },
+    {
+      "item": "doiamengineering:ironwood_nugget"
+    },
+    {
+      "item": "doiamengineering:ironwood_nugget"
+    },
+    {
+      "item": "doiamengineering:ironwood_nugget"
+    }
+  ],
+  "result": {
+    "item": "twilightforest:ironwood_ingot"
+  }
+}

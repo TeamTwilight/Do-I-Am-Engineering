@@ -1,0 +1,21 @@
+// 1.19.2	2022-09-07T19:53:44.1517212	Tags for minecraft:item
+fd984f2cb3e8d4e6508e154569b49dcab33fb101 data/forge/tags/items/dusts.json
+e43b5e74958e98098ecb3b80432689d807847d74 data/forge/tags/items/dusts/fiery.json
+3cffb3830e9a05b7c87819f1e362f7aabdd9f6b9 data/forge/tags/items/dusts/ironwood.json
+c7eb3ba2cb64b324b354df72893d42c02d1ef72d data/forge/tags/items/dusts/knightmetal.json
+bda651014a26502b1130af0b8a99018c079fd55c data/forge/tags/items/nuggets.json
+94498581e8e87c98447fcffb552ca5af495f0690 data/forge/tags/items/nuggets/fiery.json
+2b201ca901c15fe5615a28650d5434ec16e0398c data/forge/tags/items/nuggets/ironwood.json
+549a806a1b1dae4be740281ed3e4ef2fc25e0600 data/forge/tags/items/nuggets/knightmetal.json
+8bbb56ecbf05313daa3086610bc6598524f69081 data/forge/tags/items/plates.json
+7fc38544e62407ba9af1f02e1f32ff269582120b data/forge/tags/items/plates/fiery.json
+e69ed53df54a9e0d3a7f9dfcefaf2dcb3e05c850 data/forge/tags/items/plates/ironwood.json
+6b29964f93fcb205030574cbf9143cdc2a56f2f5 data/forge/tags/items/plates/knightmetal.json
+5e064e538ef4a043a507b804fd46ccf15343e100 data/forge/tags/items/rods/all_metal.json
+8e1f927841eb9754f447a7bfb77f9ad6b41bba9f data/forge/tags/items/rods/fiery.json
+8060e4a7bc5fea62f9e1826e94ae25093854329b data/forge/tags/items/rods/ironwood.json
+bee1f095440113e824c1277741c7873fbe2c3061 data/forge/tags/items/rods/knightmetal.json
+66378dd561f462264cc7d6e21ca5a325c5ff08d3 data/forge/tags/items/wires.json
+2ec31011fa81900db4949d9418c17a70f2abb974 data/forge/tags/items/wires/fiery.json
+6b1b70a23ef537247c88e4c0b259c0ca2624cf72 data/forge/tags/items/wires/ironwood.json
+59dee4237181cc0d2f2938f7aa7374a1c4d17ccc data/forge/tags/items/wires/knightmetal.json

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "doiamengineering:fiery_nugget"
+    },
+    {
+      "item": "doiamengineering:fiery_nugget"
+    },
+    {
+      "item": "doiamengineering:fiery_nugget"
+    },
+    {
+      "item": "doiamengineering:fiery_nugget"
+    },
+    {
+      "item": "doiamengineering:fiery_nugget"
+    },
+    {
+      "item": "doiamengineering:fiery_nugget"
+    },
+    {
+      "item": "doiamengineering:fiery_nugget"
+    },
+    {
+      "item": "doiamengineering:fiery_nugget"
+    },
+    {
+      "item": "doiamengineering:fiery_nugget"
+    }
+  ],
+  "result": {
+    "item": "twilightforest:fiery_ingot"
+  }
+}

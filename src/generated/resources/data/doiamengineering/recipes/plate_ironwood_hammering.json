@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "twilightforest:ironwood_ingot"
+    },
+    {
+      "item": "immersiveengineering:hammer"
+    }
+  ],
+  "result": {
+    "item": "doiamengineering:ironwood_plate"
+  }
+}

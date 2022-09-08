@@ -1,0 +1,11 @@
+{
+  "type": "immersiveengineering:crusher",
+  "energy": 3000,
+  "input": {
+    "item": "twilightforest:fiery_ingot"
+  },
+  "result": {
+    "tag": "forge:dusts/fiery"
+  },
+  "secondaries": []
+}

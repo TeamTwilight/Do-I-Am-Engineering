@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "twilightforest:knightmetal_ingot"
+    },
+    {
+      "item": "immersiveengineering:hammer"
+    }
+  ],
+  "result": {
+    "item": "doiamengineering:knightmetal_plate"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "immersiveengineering:crusher",
+  "energy": 3000,
+  "input": {
+    "item": "twilightforest:ironwood_ingot"
+  },
+  "result": {
+    "tag": "forge:dusts/ironwood"
+  },
+  "secondaries": []
+}

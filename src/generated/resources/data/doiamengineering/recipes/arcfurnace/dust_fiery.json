@@ -1,0 +1,14 @@
+{
+  "type": "immersiveengineering:arc_furnace",
+  "additives": [],
+  "energy": 51200,
+  "input": {
+    "item": "doiamengineering:fiery_dust"
+  },
+  "results": [
+    {
+      "item": "twilightforest:fiery_ingot"
+    }
+  ],
+  "time": 100
+}

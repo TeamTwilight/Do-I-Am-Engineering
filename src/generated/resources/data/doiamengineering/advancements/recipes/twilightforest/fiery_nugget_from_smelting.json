@@ -1,0 +1,99 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_boots": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:fiery_boots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:fiery_chestplate"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_helmet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:fiery_helmet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:fiery_leggings"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_pickaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:fiery_pickaxe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:fiery_sword"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "doiamengineering:fiery_nugget_from_smelting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_helmet",
+      "has_chestplate",
+      "has_leggings",
+      "has_boots",
+      "has_sword",
+      "has_pickaxe",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "doiamengineering:fiery_nugget_from_smelting"
+    ]
+  }
+}

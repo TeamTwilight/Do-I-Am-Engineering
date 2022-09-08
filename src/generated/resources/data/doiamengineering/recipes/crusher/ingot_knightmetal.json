@@ -1,0 +1,11 @@
+{
+  "type": "immersiveengineering:crusher",
+  "energy": 3000,
+  "input": {
+    "item": "twilightforest:knightmetal_ingot"
+  },
+  "result": {
+    "tag": "forge:dusts/knightmetal"
+  },
+  "secondaries": []
+}

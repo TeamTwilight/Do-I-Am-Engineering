@@ -1,0 +1,139 @@
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.1.+'
+}
+
+version = '1.0'
+group = 'com.gizmo.doiamengineering'
+archivesBaseName = 'doiamengineering'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: project.minecraft_version
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'doiamengineering'
+            property 'mixin.env.disableRefMap', 'true'
+
+            mods {
+                doiamengineering {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'doiamengineering'
+            property 'mixin.env.disableRefMap', 'true'
+
+            mods {
+                doiamengineering {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'doiamengineering'
+            property 'mixin.env.disableRefMap', 'true'
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.disableRefMap', 'true'
+            args '--mod', 'doiamengineering', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                doiamengineering {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    maven {
+        name "ModMaven"
+        url "https://modmaven.dev/"
+    }
+
+    maven {
+        name 'Jared\'s Maven'
+        url 'https://maven.blamejared.com/'
+    }
+
+    maven {
+        name 'Curseforge Maven'
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${minecraft_version}-${immersive_engineering_version}")
+    implementation fg.deobf("teamtwilight:twilightforest:${twilight_version}:universal")
+
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    runtimeOnly fg.deobf("curse.maven:jade-324717:3916646")
+}
+
+// Example for how to get properties into the manifest for reading at runtime.
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "Do I Am Engineering",
+                "Specification-Vendor"    : "GizmoTheMoonPig",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "GiamoTheMoonPig",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

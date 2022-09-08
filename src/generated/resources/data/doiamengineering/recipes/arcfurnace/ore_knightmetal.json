@@ -1,0 +1,22 @@
+{
+  "type": "immersiveengineering:arc_furnace",
+  "additives": [],
+  "energy": 102400,
+  "input": {
+    "item": "twilightforest:armor_shard_cluster"
+  },
+  "results": [
+    {
+      "item": "twilightforest:knightmetal_ingot"
+    }
+  ],
+  "secondaries": [
+    {
+      "chance": 0.5,
+      "output": {
+        "tag": "forge:ingots/knightmetal"
+      }
+    }
+  ],
+  "time": 200
+}

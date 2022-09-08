@@ -1,0 +1,138 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_axe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:ironwood_axe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_boots": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:ironwood_boots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:ironwood_chestplate"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_helmet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:ironwood_helmet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_hoe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:ironwood_hoe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:ironwood_leggings"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_pickaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:ironwood_pickaxe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_shovel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:ironwood_shovel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "twilightforest:ironwood_sword"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "doiamengineering:ironwood_nugget_from_smelting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_helmet",
+      "has_chestplate",
+      "has_leggings",
+      "has_boots",
+      "has_sword",
+      "has_pickaxe",
+      "has_axe",
+      "has_shovel",
+      "has_hoe",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "doiamengineering:ironwood_nugget_from_smelting"
+    ]
+  }
+}

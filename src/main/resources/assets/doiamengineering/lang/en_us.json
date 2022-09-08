@@ -1,0 +1,59 @@
+{
+  "config.jade.plugin_immersiveengineering.hemp": "Hemp",
+  "config.jade.plugin_immersiveengineering.multiblock_icon": "Multiblock",
+
+  "block.doiamengineering.cicada.desc": "What if this could be launched at someone with a Railgun...?",
+
+  "death.attack.doiamengineering.cicada": "%1$s was shot by Cicada",
+
+  "desc.immersiveengineering.info.shader.rarity.twilight": "Twilight",
+
+  "entity.doiamengineering.cicada_shot": "Cicada",
+
+  "item.doiamengineering.fiery_dust": "Fiery Dust",
+  "item.doiamengineering.fiery_nugget": "Fiery Nugget",
+  "item.doiamengineering.fiery_plate": "Fiery Plate",
+  "item.doiamengineering.fiery_rod": "Fiery Rod",
+  "item.doiamengineering.fiery_wire": "Fiery Wire",
+
+  "item.doiamengineering.ironwood_dust": "Ironwood Dust",
+  "item.doiamengineering.ironwood_nugget": "Ironwood Nugget",
+  "item.doiamengineering.ironwood_plate": "Ironwood Plate",
+  "item.doiamengineering.ironwood_rod": "Ironwood Rod",
+  "item.doiamengineering.ironwood_wire": "Ironwood Wire",
+
+  "item.doiamengineering.knightmetal_dust": "Knightmetal Dust",
+  "item.doiamengineering.knightmetal_plate": "Knightmetal Plate",
+  "item.doiamengineering.knightmetal_rod": "Knightmetal Rod",
+  "item.doiamengineering.knightmetal_wire": "Knightmetal Wire",
+  
+  "item.doiamengineering.shader": "Twilit Shader: %s",
+  "item.doiamengineering.shader_bag": "Twilit %s Shader Bag",
+
+  "item.doiamengineering.shader.name.twilight": "Twilight",
+  "item.doiamengineering.shader.name.firefly": "Firefly",
+  "item.doiamengineering.shader.name.quest_ram": "Quest Ram",
+  "item.doiamengineering.shader.name.ironwood": "Ironwood",
+  "item.doiamengineering.shader.name.steeleaf": "Steeleaf",
+  "item.doiamengineering.shader.name.knightmetal": "Knightmetal",
+  "item.doiamengineering.shader.name.fiery": "Fiery",
+  "item.doiamengineering.shader.name.nagastone": "Nagastone",
+  "item.doiamengineering.shader.name.naga": "Naga",
+  "item.doiamengineering.shader.name.lich": "Lich",
+  "item.doiamengineering.shader.name.mazestone": "Mazestone",
+  "item.doiamengineering.shader.name.pinch_beetle": "Pinch Beetle",
+  "item.doiamengineering.shader.name.minoshroom": "Minoshroom",
+  "item.doiamengineering.shader.name.hydra": "Hydra",
+  "item.doiamengineering.shader.name.underbrick": "Underbrick",
+  "item.doiamengineering.shader.name.knight_phantom": "Knight Phantom",
+  "item.doiamengineering.shader.name.towerwood": "Towerwood",
+  "item.doiamengineering.shader.name.carminite": "Carminite",
+  "item.doiamengineering.shader.name.ur-ghast": "Ur-Ghast",
+  "item.doiamengineering.shader.name.alpha_yeti": "Alpha Yeti",
+  "item.doiamengineering.shader.name.auroralized": "Auroralized",
+  "item.doiamengineering.shader.name.snow_queen": "Snow Queen",
+  "item.doiamengineering.shader.name.cube_of_annihilation": "Cube Of Annihilation",
+  "item.doiamengineering.shader.name.final_castle": "Final Castle",
+
+  "subtitles.doiamengineering.entity.cicada_flying": "Cicada zooms away"
+}

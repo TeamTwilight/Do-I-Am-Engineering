@@ -1,0 +1,22 @@
+{
+  "type": "immersiveengineering:arc_furnace",
+  "additives": [],
+  "energy": 102400,
+  "input": {
+    "item": "twilightforest:raw_ironwood"
+  },
+  "results": [
+    {
+      "item": "twilightforest:ironwood_ingot"
+    }
+  ],
+  "secondaries": [
+    {
+      "chance": 0.5,
+      "output": {
+        "tag": "forge:ingots/ironwood"
+      }
+    }
+  ],
+  "time": 200
+}

@@ -1,0 +1,50 @@
+modLoader="javafml"
+loaderVersion="[43,)"
+issueTrackerURL="https://github.com/TeamTwilight/Do-I-Am-Engineering/issues"
+license="GNU General Public Licence v3"
+
+[[mods]]
+modId="doiamengineering"
+version="${file.jarVersion}"
+displayName="Do I Am Engineering"
+itemIcon="twilightforest:cicada"
+logoFile="examplemod.png"
+credits="Drullkus for making the shaders, AtomicBlom for the idea of shooting cicadas from railguns, and TeamTwilight for being their amazing selves"
+authors="Drullkus, GizmoTheMoonPig"
+description='''
+An addon mod to tie the wonderful mods, Twilight Forest and Immersive Engineering, closer together.
+
+Collect all sorts of new shaders for your weapons and banners!
+Crush, press, and hammer fiery, ironwood, and knightmetal ingots into all sorts of things!
+Shoot Cicadas at your friends!
+Create the coveted fiery and ironwood ingots, finally!
+...with more to come in the future!
+'''
+
+[[dependencies.doiamengineering]]
+    modId="forge"
+    mandatory=true
+    versionRange="[43.1.2,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.doiamengineering]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19.2,1.20)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.doiamengineering]]
+    modId="twilightforest"
+    mandatory=true
+    versionRange="[4.2.1392,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.doiamengineering]]
+    modId="immersiveengineering"
+    mandatory=true
+    versionRange="[1.19.2-9.0.0-153,)"
+    ordering="NONE"
+    side="BOTH"

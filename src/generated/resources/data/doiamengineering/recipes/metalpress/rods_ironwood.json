@@ -1,0 +1,14 @@
+{
+  "type": "immersiveengineering:metal_press",
+  "energy": 2400,
+  "input": {
+    "item": "twilightforest:ironwood_ingot"
+  },
+  "mold": "immersiveengineering:mold_rod",
+  "result": {
+    "base_ingredient": {
+      "tag": "forge:rods/ironwood"
+    },
+    "count": 2
+  }
+}

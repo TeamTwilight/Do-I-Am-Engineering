@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "twilightforest:fiery_helmet"
+    },
+    {
+      "item": "twilightforest:fiery_chestplate"
+    },
+    {
+      "item": "twilightforest:fiery_leggings"
+    },
+    {
+      "item": "twilightforest:fiery_boots"
+    },
+    {
+      "item": "twilightforest:fiery_sword"
+    },
+    {
+      "item": "twilightforest:fiery_pickaxe"
+    }
+  ],
+  "result": "doiamengineering:fiery_nugget"
+}

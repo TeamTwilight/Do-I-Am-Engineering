@@ -1,0 +1,7 @@
+{
+  "values": [
+    "#forge:wires/fiery",
+    "#forge:wires/ironwood",
+    "#forge:wires/knightmetal"
+  ]
+}

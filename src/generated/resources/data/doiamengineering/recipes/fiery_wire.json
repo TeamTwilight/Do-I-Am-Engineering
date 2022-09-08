@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:plates/fiery"
+    },
+    {
+      "item": "immersiveengineering:wirecutter"
+    }
+  ],
+  "result": {
+    "item": "doiamengineering:fiery_wire"
+  }
+}

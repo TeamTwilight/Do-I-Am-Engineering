@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:plates/ironwood"
+    },
+    {
+      "item": "immersiveengineering:wirecutter"
+    }
+  ],
+  "result": {
+    "item": "doiamengineering:ironwood_wire"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "twilightforest:ironwood_helmet"
+    },
+    {
+      "item": "twilightforest:ironwood_chestplate"
+    },
+    {
+      "item": "twilightforest:ironwood_leggings"
+    },
+    {
+      "item": "twilightforest:ironwood_boots"
+    },
+    {
+      "item": "twilightforest:ironwood_sword"
+    },
+    {
+      "item": "twilightforest:ironwood_pickaxe"
+    },
+    {
+      "item": "twilightforest:ironwood_axe"
+    },
+    {
+      "item": "twilightforest:ironwood_shovel"
+    },
+    {
+      "item": "twilightforest:ironwood_hoe"
+    }
+  ],
+  "result": "doiamengineering:ironwood_nugget"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "twilightforest:fiery_ingot"
+    },
+    {
+      "item": "immersiveengineering:hammer"
+    }
+  ],
+  "result": {
+    "item": "doiamengineering:fiery_plate"
+  }
+}
