@@ -16,6 +16,7 @@ import com.gizmo.doiamengineering.util.wires.TFWireDamageHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -43,6 +44,10 @@ import java.util.UUID;
 @Mod(DoIAmEngineering.MODID)
 public class DoIAmEngineering {
 	public static final String MODID = "doiamengineering";
+
+	public static final WireType FIERY = new FieryWireType();
+	public static final WireType IRONWOOD = new IronwoodWireType();
+	public static final WireType KNIGHTMETAL = new KnightmetalWireType();
 
 	public DoIAmEngineering() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -86,7 +91,7 @@ public class DoIAmEngineering {
 			}
 		});
 
-		RailgunHandler.registerProjectile(() -> Ingredient.of(ModRegistry.FIERY_ROD.get()), new RailgunHandler.StandardRailgunProjectile(10.0D, 1.25D) {
+		RailgunHandler.registerProjectile(() -> Ingredient.of(ModRegistry.FIERY_ROD.get()), new RailgunHandler.StandardRailgunProjectile(20.0D, 1.25D) {
 			@Override
 			public void onHitTarget(Level level, HitResult target, @Nullable UUID shooter, Entity projectile) {
 				if (target instanceof EntityHitResult result) {
@@ -95,13 +100,20 @@ public class DoIAmEngineering {
 			}
 		}.setColorMap(new RailgunHandler.RailgunRenderColors(0x3C2323, 0x3C2323, 0x3C2323, 0x191313, 0x080606, 0x080606)));
 
-		RailgunHandler.registerStandardProjectile(ModRegistry.IRONWOOD_ROD.get().getDefaultInstance(), 16.0D, 1.25D).setColorMap(
+		RailgunHandler.registerStandardProjectile(ModRegistry.IRONWOOD_ROD.get().getDefaultInstance(), 12.0D, 1.25D).setColorMap(
 				new RailgunHandler.RailgunRenderColors(0x887C7C, 0x8A8E3B, 0x5E574B, 0x83764A, 0x5F4D40, 0x5F4D40)
 		);
 
-		RailgunHandler.registerStandardProjectile(ModRegistry.KNIGHTMETAL_ROD.get().getDefaultInstance(), 32.0D, 1.25D).setColorMap(
-				new RailgunHandler.RailgunRenderColors(0xE7FCCD, 0xE7FCCD, 0xE7FCCD, 0x6A735E, 0x6A735E, 0x6A735E)
-		);
+		RailgunHandler.registerProjectile(() -> Ingredient.of(ModRegistry.KNIGHTMETAL_ROD.get()), new RailgunHandler.StandardRailgunProjectile(16.0D, 1.25D) {
+			@Override
+			public double getDamage(Level level, Entity target, @Nullable UUID shooter, Entity projectile) {
+				if (target instanceof LivingEntity living) {
+					return super.getDamage(level, target, shooter, projectile) * (living.getArmorCoverPercentage() + 1.0D);
+				}
+				return super.getDamage(level, target, shooter, projectile);
+			}
+		}.setColorMap(new RailgunHandler.RailgunRenderColors(0xE7FCCD, 0xE7FCCD, 0xE7FCCD, 0x6A735E, 0x6A735E, 0x6A735E)));
+
 		WireApi.registerFeedthroughForWiretype(FIERY, new ResourceLocation(Lib.MODID, "block/connector/connector_hv"),
 				new double[]{0.0D, 4.0D, 8.0D, 12.0D}, 0.75D, IEBlocks.Connectors.getEnergyConnector(WireType.HV_CATEGORY, false).defaultBlockState());
 
