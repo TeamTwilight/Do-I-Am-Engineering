@@ -1,9 +1,18 @@
 package com.gizmo.doiamengineering;
 
+import blusunrize.immersiveengineering.api.Lib;
 import blusunrize.immersiveengineering.api.shader.ShaderRegistry;
 import blusunrize.immersiveengineering.api.tool.RailgunHandler;
+import blusunrize.immersiveengineering.api.wires.WireApi;
+import blusunrize.immersiveengineering.api.wires.WireType;
+import blusunrize.immersiveengineering.api.wires.localhandlers.LocalNetworkHandler;
+import blusunrize.immersiveengineering.common.register.IEBlocks;
 import com.gizmo.doiamengineering.entity.CicadaShot;
 import com.gizmo.doiamengineering.item.TFShaderBagItem;
+import com.gizmo.doiamengineering.util.wires.FieryWireType;
+import com.gizmo.doiamengineering.util.wires.IronwoodWireType;
+import com.gizmo.doiamengineering.util.wires.KnightmetalWireType;
+import com.gizmo.doiamengineering.util.wires.TFWireDamageHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -93,7 +102,16 @@ public class DoIAmEngineering {
 		RailgunHandler.registerStandardProjectile(ModRegistry.KNIGHTMETAL_ROD.get().getDefaultInstance(), 32.0D, 1.25D).setColorMap(
 				new RailgunHandler.RailgunRenderColors(0xE7FCCD, 0xE7FCCD, 0xE7FCCD, 0x6A735E, 0x6A735E, 0x6A735E)
 		);
+		WireApi.registerFeedthroughForWiretype(FIERY, new ResourceLocation(Lib.MODID, "block/connector/connector_hv"),
+				new double[]{0.0D, 4.0D, 8.0D, 12.0D}, 0.75D, IEBlocks.Connectors.getEnergyConnector(WireType.HV_CATEGORY, false).defaultBlockState());
 
+		WireApi.registerFeedthroughForWiretype(IRONWOOD, new ResourceLocation(Lib.MODID, "block/connector/connector_lv"),
+				new double[]{0.0D, 4.0D, 8.0D, 12.0D}, 0.5D, IEBlocks.Connectors.getEnergyConnector(WireType.LV_CATEGORY, false).defaultBlockState());
+
+		WireApi.registerFeedthroughForWiretype(KNIGHTMETAL, new ResourceLocation(Lib.MODID, "block/connector/connector_mv"),
+				new double[]{0.0D, 4.0D, 8.0D, 12.0D}, 0.5625D, IEBlocks.Connectors.getEnergyConnector(WireType.MV_CATEGORY, false).defaultBlockState());
+
+		LocalNetworkHandler.register(TFWireDamageHandler.ID, TFWireDamageHandler::new);
 
 		IEShaderRegistry.initShaders();
 	}

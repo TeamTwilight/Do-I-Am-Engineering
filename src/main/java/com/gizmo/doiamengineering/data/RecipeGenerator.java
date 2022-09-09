@@ -8,11 +8,9 @@ import blusunrize.immersiveengineering.common.register.IEItems;
 import com.gizmo.doiamengineering.DoIAmEngineering;
 import com.gizmo.doiamengineering.ModRegistry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.Tags;
 import twilightforest.init.TFBlocks;
 import twilightforest.init.TFItems;
 
@@ -29,6 +27,33 @@ public class RecipeGenerator extends RecipeProvider {
 		ThermoelectricSourceBuilder.builder(TFBlocks.FIERY_BLOCK.get())
 				.kelvin(2500)
 				.build(consumer, DoIAmEngineering.prefix("thermoelectric/fiery_block"));
+
+		ShapedRecipeBuilder.shaped(ModRegistry.FIERY_WIRE_COIL.get(), 4)
+				.pattern(" w ")
+				.pattern("wsw")
+				.pattern(" w ")
+				.define('w', ModRegistry.FIERY_WIRE.get())
+				.define('s', Tags.Items.RODS_WOODEN)
+				.unlockedBy("has_wire", has(ModRegistry.FIERY_WIRE.get()))
+				.save(consumer);
+
+		ShapedRecipeBuilder.shaped(ModRegistry.IRONWOOD_WIRE_COIL.get(), 4)
+				.pattern(" w ")
+				.pattern("wsw")
+				.pattern(" w ")
+				.define('w', ModRegistry.IRONWOOD_WIRE.get())
+				.define('s', Tags.Items.RODS_WOODEN)
+				.unlockedBy("has_wire", has(ModRegistry.IRONWOOD_WIRE.get()))
+				.save(consumer);
+
+		ShapedRecipeBuilder.shaped(ModRegistry.KNIGHTMETAL_WIRE_COIL.get(), 4)
+				.pattern(" w ")
+				.pattern("wsw")
+				.pattern(" w ")
+				.define('w', ModRegistry.KNIGHTMETAL_WIRE.get())
+				.define('s', Tags.Items.RODS_WOODEN)
+				.unlockedBy("has_wire", has(ModRegistry.KNIGHTMETAL_WIRE.get()))
+				.save(consumer);
 
 		ShapelessRecipeBuilder.shapeless(TFItems.FIERY_INGOT.get())
 				.requires(Ingredient.of(ModRegistry.FIERY_NUGGET.get()), 9)
@@ -207,8 +232,8 @@ public class RecipeGenerator extends RecipeProvider {
 				.save(consumer, DoIAmEngineering.prefix("ironwood_nugget_from_smelting"));
 
 		SimpleCookingRecipeBuilder.blasting(Ingredient.of(
-						TFItems.IRONWOOD_HELMET.get(), TFItems.IRONWOOD_CHESTPLATE.get(), TFItems.IRONWOOD_LEGGINGS.get(), TFItems.IRONWOOD_BOOTS.get(),
-						TFItems.IRONWOOD_SWORD.get(), TFItems.IRONWOOD_PICKAXE.get(), TFItems.IRONWOOD_AXE.get(), TFItems.IRONWOOD_SHOVEL.get(), TFItems.IRONWOOD_HOE.get()),
+								TFItems.IRONWOOD_HELMET.get(), TFItems.IRONWOOD_CHESTPLATE.get(), TFItems.IRONWOOD_LEGGINGS.get(), TFItems.IRONWOOD_BOOTS.get(),
+								TFItems.IRONWOOD_SWORD.get(), TFItems.IRONWOOD_PICKAXE.get(), TFItems.IRONWOOD_AXE.get(), TFItems.IRONWOOD_SHOVEL.get(), TFItems.IRONWOOD_HOE.get()),
 						ModRegistry.IRONWOOD_NUGGET.get(), 0.1F, 100)
 				.unlockedBy("has_helmet", has(TFItems.IRONWOOD_HELMET.get())).unlockedBy("has_chestplate", has(TFItems.IRONWOOD_CHESTPLATE.get()))
 				.unlockedBy("has_leggings", has(TFItems.IRONWOOD_LEGGINGS.get())).unlockedBy("has_boots", has(TFItems.IRONWOOD_BOOTS.get()))

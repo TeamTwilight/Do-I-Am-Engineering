@@ -1,7 +1,9 @@
 package com.gizmo.doiamengineering;
 
+import blusunrize.immersiveengineering.common.items.WireCoilItem;
 import com.gizmo.doiamengineering.entity.CicadaShot;
 import com.gizmo.doiamengineering.item.TFShaderItem;
+import com.gizmo.doiamengineering.item.TFWireCoilItem;
 import com.gizmo.doiamengineering.loot.AddShaderToLootModifier;
 import com.mojang.serialization.Codec;
 import net.minecraft.sounds.SoundEvent;
@@ -30,6 +32,10 @@ public class ModRegistry {
 
 	public static final RegistryObject<EntityType<CicadaShot>> CICADA_SHOT = ENTITIES.register("cicada_shot", () -> EntityType.Builder.<CicadaShot>of(CicadaShot::new, MobCategory.MISC).sized(0.25F, 0.25F).setTrackingRange(150).setUpdateInterval(3).fireImmune().build("cicada_shot"));
 
+
+	public static final RegistryObject<Item> FIERY_WIRE_COIL = ITEMS.register("fiery_wire_coil", () -> new TFWireCoilItem(DoIAmEngineering.FIERY));
+	public static final RegistryObject<Item> IRONWOOD_WIRE_COIL = ITEMS.register("ironwood_wire_coil", () -> new TFWireCoilItem(DoIAmEngineering.IRONWOOD));
+	public static final RegistryObject<Item> KNIGHTMETAL_WIRE_COIL = ITEMS.register("knightmetal_wire_coil", () -> new TFWireCoilItem(DoIAmEngineering.KNIGHTMETAL));
 
 	public static final RegistryObject<Item> FIERY_DUST = ITEMS.register("fiery_dust", () -> new Item(new Item.Properties().tab(TFItems.creativeTab)));
 	public static final RegistryObject<Item> FIERY_NUGGET = ITEMS.register("fiery_nugget", () -> new Item(new Item.Properties().tab(TFItems.creativeTab)));

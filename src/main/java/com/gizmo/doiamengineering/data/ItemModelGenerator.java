@@ -25,17 +25,20 @@ public class ItemModelGenerator extends ItemModelProvider {
 		singleTex(ModRegistry.FIERY_PLATE, true);
 		singleTex(ModRegistry.FIERY_ROD, true);
 		singleTex(ModRegistry.FIERY_WIRE, true);
+		singleTex(ModRegistry.FIERY_WIRE_COIL, false);
 
 		singleTex(ModRegistry.IRONWOOD_DUST, false);
 		singleTex(ModRegistry.IRONWOOD_NUGGET, false);
 		singleTex(ModRegistry.IRONWOOD_PLATE, false);
 		singleTex(ModRegistry.IRONWOOD_ROD, false);
 		singleTex(ModRegistry.IRONWOOD_WIRE, false);
+		singleTex(ModRegistry.IRONWOOD_WIRE_COIL, false);
 
 		singleTex(ModRegistry.KNIGHTMETAL_DUST, false);
 		singleTex(ModRegistry.KNIGHTMETAL_PLATE, false);
 		singleTex(ModRegistry.KNIGHTMETAL_ROD, false);
 		singleTex(ModRegistry.KNIGHTMETAL_WIRE, false);
+		singleTex(ModRegistry.KNIGHTMETAL_WIRE_COIL, false);
 
 		withExistingParent("shader", prefix("item/lunchcase"))
 				.texture("missing", prefix("block/lunchbox_face"))

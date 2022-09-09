@@ -15,18 +15,27 @@
   "item.doiamengineering.fiery_plate": "Fiery Plate",
   "item.doiamengineering.fiery_rod": "Fiery Rod",
   "item.doiamengineering.fiery_wire": "Fiery Wire",
+  "item.doiamengineering.fiery_wire_coil": "Fiery Wire Coil",
+  "item.doiamengineering.fiery_wire_coil.desc": "Works as an HV wire coil.",
+  "item.doiamengineering.fiery_wire_coil.desc1": "Similar to how fiery blocks and armor work, it scorches anything that touches it.",
 
   "item.doiamengineering.ironwood_dust": "Ironwood Dust",
   "item.doiamengineering.ironwood_nugget": "Ironwood Nugget",
   "item.doiamengineering.ironwood_plate": "Ironwood Plate",
   "item.doiamengineering.ironwood_rod": "Ironwood Rod",
   "item.doiamengineering.ironwood_wire": "Ironwood Wire",
+  "item.doiamengineering.ironwood_wire_coil": "Ironwood Wire Coil",
+  "item.doiamengineering.ironwood_wire_coil.desc": "Works as an LV wire coil.",
+  "item.doiamengineering.ironwood_wire_coil.desc1": "The combination of gold and iron make it conductive, but the properties of liveroot cause it to be naturally insulated.",
 
   "item.doiamengineering.knightmetal_dust": "Knightmetal Dust",
   "item.doiamengineering.knightmetal_plate": "Knightmetal Plate",
   "item.doiamengineering.knightmetal_rod": "Knightmetal Rod",
   "item.doiamengineering.knightmetal_wire": "Knightmetal Wire",
-  
+  "item.doiamengineering.knightmetal_wire_coil": "Knightmetal Wire Coil",
+  "item.doiamengineering.knightmetal_wire_coil.desc": "Works as an MV wire coil.",
+  "item.doiamengineering.knightmetal_wire_coil.desc1": "A naturally spiky wire that does more damage to entities wearing armor.",
+
   "item.doiamengineering.shader": "Twilit Shader: %s",
   "item.doiamengineering.shader_bag": "Twilit %s Shader Bag",
 
