@@ -39,7 +39,7 @@ public class TFWireCoilItem extends WireCoilItem {
 
 	@Override
 	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-		if (tab == TFItems.creativeTab || this.allowedIn(tab)) {
+		if (tab == TFItems.creativeTab || tab == CreativeModeTab.TAB_SEARCH) {
 			items.add(new ItemStack(this));
 		}
 	}

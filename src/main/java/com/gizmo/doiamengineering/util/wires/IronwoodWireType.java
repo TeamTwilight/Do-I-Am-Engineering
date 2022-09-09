@@ -35,7 +35,7 @@ public class IronwoodWireType extends WireType implements EnergyTransferHandler.
 
 	@Override
 	public double getRenderDiameter() {
-		return 0.0625D;
+		return 0.045D;
 	}
 
 	@NotNull
