@@ -3,6 +3,7 @@ package com.gizmo.doiamengineering.data;
 import blusunrize.immersiveengineering.api.crafting.builders.ArcFurnaceRecipeBuilder;
 import blusunrize.immersiveengineering.api.crafting.builders.CrusherRecipeBuilder;
 import blusunrize.immersiveengineering.api.crafting.builders.MetalPressRecipeBuilder;
+import blusunrize.immersiveengineering.api.crafting.builders.ThermoelectricSourceBuilder;
 import blusunrize.immersiveengineering.common.register.IEItems;
 import com.gizmo.doiamengineering.DoIAmEngineering;
 import com.gizmo.doiamengineering.ModRegistry;
@@ -12,6 +13,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.item.crafting.Ingredient;
+import twilightforest.init.TFBlocks;
 import twilightforest.init.TFItems;
 
 import java.util.function.Consumer;
@@ -23,6 +25,10 @@ public class RecipeGenerator extends RecipeProvider {
 
 	@Override
 	protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+
+		ThermoelectricSourceBuilder.builder(TFBlocks.FIERY_BLOCK.get())
+				.kelvin(2500)
+				.build(consumer, DoIAmEngineering.prefix("thermoelectric/fiery_block"));
 
 		ShapelessRecipeBuilder.shapeless(TFItems.FIERY_INGOT.get())
 				.requires(Ingredient.of(ModRegistry.FIERY_NUGGET.get()), 9)

@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-07T20:31:06.5891713	Recipes
+// 1.19.2	2022-09-08T22:24:54.376857	Recipes
 0f4c127c9db3894b14ffe8ef6a514ae2bf8d01f0 data/doiamengineering/advancements/recipes/twilightforest/fiery_ingot_from_nuggets.json
 a212cb0d13043e78a2cd24eb32d53320376cb1f2 data/doiamengineering/advancements/recipes/twilightforest/fiery_nugget.json
 c8dd90eac4e6b664488c24398cdbeee86bddcb57 data/doiamengineering/advancements/recipes/twilightforest/fiery_nugget_from_blasting.json
@@ -44,3 +44,4 @@ da14be7e0dd618a30baa83683938b0bc44ba27ec data/doiamengineering/recipes/metalpres
 d75dfdc542cb0f37b21d688cbe4fcd1c46f1853f data/doiamengineering/recipes/plate_fiery_hammering.json
 ddd9bf91b40856d6beb6fb0853af0c7d13cd9755 data/doiamengineering/recipes/plate_ironwood_hammering.json
 de45419d24a6f2eed8e2e2f902392e983d1ccda4 data/doiamengineering/recipes/plate_knightmetal_hammering.json
+5e55ffbad5be7cde38de7ca9b9f437c5ae09023d data/doiamengineering/recipes/thermoelectric/fiery_block.json

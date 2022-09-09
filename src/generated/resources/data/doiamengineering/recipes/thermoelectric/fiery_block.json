@@ -1,0 +1,5 @@
+{
+  "type": "immersiveengineering:thermoelectric_source",
+  "singleBlock": "twilightforest:fiery_block",
+  "tempKelvin": 2500
+}

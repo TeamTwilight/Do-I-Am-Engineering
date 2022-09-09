@@ -1,6 +1,5 @@
 package com.gizmo.doiamengineering;
 
-import blusunrize.immersiveengineering.api.crafting.builders.ThermoelectricSourceBuilder;
 import blusunrize.immersiveengineering.api.shader.ShaderRegistry;
 import blusunrize.immersiveengineering.api.tool.RailgunHandler;
 import com.gizmo.doiamengineering.entity.CicadaShot;
@@ -95,7 +94,6 @@ public class DoIAmEngineering {
 				new RailgunHandler.RailgunRenderColors(0xE7FCCD, 0xE7FCCD, 0xE7FCCD, 0x6A735E, 0x6A735E, 0x6A735E)
 		);
 
-		ThermoelectricSourceBuilder.builder(TFBlocks.FIERY_BLOCK.get()).kelvin(2500);
 
 		IEShaderRegistry.initShaders();
 	}
