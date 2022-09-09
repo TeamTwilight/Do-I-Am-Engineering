@@ -8,6 +8,32 @@
 
   "desc.immersiveengineering.info.shader.rarity.twilight": "Twilight",
 
+  "desc.immersiveengineering.info.shader.details.twilightforest": "",
+  "desc.immersiveengineering.info.shader.details.firefly": "",
+  "desc.immersiveengineering.info.shader.details.pinch_beetle": "",
+  "desc.immersiveengineering.info.shader.details.nagastone": "",
+  "desc.immersiveengineering.info.shader.details.mazestone": "",
+  "desc.immersiveengineering.info.shader.details.underbrick": "",
+  "desc.immersiveengineering.info.shader.details.towerwood": "",
+  "desc.immersiveengineering.info.shader.details.carminite": "",
+  "desc.immersiveengineering.info.shader.details.aurora": "",
+  "desc.immersiveengineering.info.shader.details.ironwood": "",
+  "desc.immersiveengineering.info.shader.details.steeleaf": "",
+  "desc.immersiveengineering.info.shader.details.knightmetal": "",
+  "desc.immersiveengineering.info.shader.details.fiery": "",
+  "desc.immersiveengineering.info.shader.details.final_castle": "",
+  "desc.immersiveengineering.info.shader.details.cube_of_annihilation": "",
+
+  "desc.immersiveengineering.info.shader.details.quest_ram": "",
+  "desc.immersiveengineering.info.shader.details.naga": "",
+  "desc.immersiveengineering.info.shader.details.lich": "",
+  "desc.immersiveengineering.info.shader.details.minoshroom": "",
+  "desc.immersiveengineering.info.shader.details.hydra": "",
+  "desc.immersiveengineering.info.shader.details.knight_phantom": "",
+  "desc.immersiveengineering.info.shader.details.ur-ghast": "",
+  "desc.immersiveengineering.info.shader.details.alpha_yeti": "",
+  "desc.immersiveengineering.info.shader.details.snow_queen": "",
+
   "entity.doiamengineering.cicada_shot": "Cicada",
 
   "item.doiamengineering.fiery_dust": "Fiery Dust",
