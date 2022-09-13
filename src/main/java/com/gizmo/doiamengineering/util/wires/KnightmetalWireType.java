@@ -61,6 +61,10 @@ public class KnightmetalWireType extends WireType implements WireDamageHandler.I
 	@Override
 	public float getDamageAmount(Entity entity, Connection connection, int energy) {
 		if (entity instanceof LivingEntity living) {
+			if (living.getArmorValue() > 0 && living.getArmorCoverPercentage() <= 0) {
+				return 5.0F;
+			}
+
 			living.getArmorSlots().forEach(stack -> {
 				if (!stack.isEmpty() && (stack.getItem() instanceof ArmorItem || stack.getEquipmentSlot() != null))
 					stack.hurtAndBreak(1, living, entity1 -> entity1.broadcastBreakEvent(stack.getItem() instanceof ArmorItem armor ? armor.getSlot() : stack.getEquipmentSlot()));

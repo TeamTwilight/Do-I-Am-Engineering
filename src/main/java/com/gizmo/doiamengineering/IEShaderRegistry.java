@@ -283,7 +283,7 @@ public class IEShaderRegistry {
 						0xFF_32_5D_25, 0xFF_17_29_11, 0xFF_A5_D4_16, 0xFF_FF_FF_FF, LAYER_PROVIDER,
 						(m, t, s, c) -> new ShaderLayer(ModType.IMMERSIVE_ENGINEERING.provideTex(t, "shark"), 0xFF_FF_FF_FF))
 						.setInfo("Twilight Forest", null, "naga")
-						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.NAGA_SCALE.get()), 5)),
+						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.NAGA_SCALE.get()), 1)),
 
 				registerShaderCases("Lich", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
 						0xFF_DF_D9_CC, 0xFF_C3_9C_00, 0xFF_3A_04_75, 0xFF_FF_FF_FF, LAYER_PROVIDER)
@@ -299,7 +299,7 @@ public class IEShaderRegistry {
 						0xFF_14_29_40, 0xFF_29_80_6B, 0xFF_F1_0A_92, 0xFF_FF_FF_FF, LAYER_PROVIDER,
 						(m, t, s, c) -> new ShaderLayer(ModType.IMMERSIVE_ENGINEERING.provideTex(t, "shark"), 0xFF_FF_FF_FF))
 						.setInfo("Twilight Forest", null, "hydra")
-						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.HYDRA_CHOP.get(), TFItems.FIERY_BLOOD.get()), 2)),
+						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.HYDRA_CHOP.get(), TFItems.FIERY_BLOOD.get()), 1)),
 
 				registerShaderCases("Knight Phantom", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
 						0xCC_40_6D_05, 0xFF_36_35_34, 0xFF_7A_5C_49, 0xFF_FF_FF_FF, LAYER_PROVIDER)
@@ -309,7 +309,7 @@ public class IEShaderRegistry {
 				registerShaderCases("Ur-Ghast", ModType.IMMERSIVE_ENGINEERING, "1_2", RARITY,
 						0xFF_F9_F9_F9, 0xFF_9A_37_37, 0xFF_56_56_56, 0xFF_FF_FF_FF, LAYER_PROVIDER)
 						.setInfo("Twilight Forest", null, "ur-ghast")
-						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.FIERY_TEARS.get()), 2)),
+						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.FIERY_TEARS.get()), 1)),
 
 				registerShaderCases("Alpha Yeti", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
 						0xFF_FC_FC_FC, 0xFF_4A_80_CE, 0xFF_25_3F_66, 0xFF_FF_FF_FF, LAYER_PROVIDER)
