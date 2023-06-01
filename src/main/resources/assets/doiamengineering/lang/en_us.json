@@ -1,7 +1,4 @@
 {
-  "config.jade.plugin_immersiveengineering.hemp": "Hemp",
-  "config.jade.plugin_immersiveengineering.multiblock_icon": "Multiblock",
-
   "block.doiamengineering.cicada.desc": "What if this could be launched at someone with a Railgun...?",
 
   "death.attack.doiamengineering.cicada": "%1$s was shot by Cicada",

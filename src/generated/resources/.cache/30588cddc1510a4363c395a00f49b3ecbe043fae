@@ -1,7 +1,7 @@
-// 1.19.2	2022-09-08T07:19:16.2726535	Global Loot Modifiers : doiamengineering
+// 1.19.4	2023-05-16T09:45:39.9694728	Global Loot Modifiers : doiamengineering
 9a99c45def5ede2bd6ba9fe2616fdbe8b80314a4 data/doiamengineering/loot_modifiers/alpha_yeti_shader.json
 6f071cca85bc42af965b0ec4d0c58ba7b2584ef0 data/doiamengineering/loot_modifiers/hydra_shader.json
-bca72d5cac1ee36bb3cead7c186a7a5af7071332 data/doiamengineering/loot_modifiers/knight_phantom_shader.json
+f268d453870b75b4eea80766a6eace0a3c3c134f data/doiamengineering/loot_modifiers/knight_phantom_shader.json
 da9af70fca1ee0f9ee75760d06c20218dd79be05 data/doiamengineering/loot_modifiers/lich_shader.json
 7a322bd526ea5135b761eaf1f6fd9534b21db807 data/doiamengineering/loot_modifiers/minoshroom_shader.json
 5e00bc3cfd99c78c330b19cc74b1d16c40a3e3d6 data/doiamengineering/loot_modifiers/naga_shader.json

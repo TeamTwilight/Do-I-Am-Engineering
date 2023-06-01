@@ -29,7 +29,7 @@ public class TFWireDamageHandler extends WireDamageHandler {
 	// Copy of WireDamageHandler.onCollided, we just need to handle a special case.
 	// I wrote a comment above it.
 	@Override
-	public void onCollided(LivingEntity e, BlockPos pos, WireCollisionData.CollisionInfo info) {
+	public void onCollided(LivingEntity entity, BlockPos pos, WireCollisionData.CollisionInfo info) {
 		WireType wType = info.connection().type;
 		if (!(wType instanceof IShockingWire shockWire))
 			return;
@@ -37,7 +37,7 @@ public class TFWireDamageHandler extends WireDamageHandler {
 		if (energyHandler == null)
 			return;
 		double extra = shockWire.getDamageRadius();
-		AABB eAabb = e.getBoundingBox();
+		AABB eAabb = entity.getBoundingBox();
 		AABB includingExtra = eAabb.inflate(extra).move(-pos.getX(), -pos.getY(), -pos.getZ());
 		boolean collides = includingExtra.contains(info.intersectA()) || includingExtra.contains(info.intersectB());
 		if (!collides && includingExtra.clip(info.intersectA(), info.intersectB()).isEmpty())
@@ -45,34 +45,31 @@ public class TFWireDamageHandler extends WireDamageHandler {
 		final ConnectionPoint target = info.connection().getEndA();
 		final List<SourceData> available = getAvailableEnergy(energyHandler, target);
 		if (available.isEmpty()) {
-			//our wires have some special damage handling if they dont have power, so thats what this bit is for
-			final float maxPossibleDamage = shockWire.getDamageAmount(e, info.connection(), 0);
+			//our wires have some special damage handling if they don't have power, so that's what this bit is for
+			final float maxPossibleDamage = shockWire.getDamageAmount(entity, info.connection(), 0);
 			if (maxPossibleDamage <= 0)
 				return;
-			IElectricDamageSource dmg = GET_WIRE_DAMAGE.getValue()
-					.apply(maxPossibleDamage, shockWire.getElectricSource());
-			if (!dmg.apply(e))
+			IElectricDamageSource dmg = GET_WIRE_DAMAGE.getValue().make(entity.getLevel(), maxPossibleDamage, shockWire.getElectricSource());
+			if (!dmg.apply(entity))
 				return;
 			final float actualDamage = dmg.getDamage();
-			Vec3 v = e.getLookAngle();
-			ApiUtils.knockbackNoSource(e, actualDamage / 10, v.x(), v.z());
+			Vec3 v = entity.getLookAngle();
+			ApiUtils.knockbackNoSource(entity, actualDamage / 10, v.x(), v.z());
 		} else {
-
 			int totalAvailable = 0;
 			for (SourceData source : available)
 				totalAvailable += source.amountAvailable * (1 - source.pathToSource.loss);
 			totalAvailable = Math.min(totalAvailable, shockWire.getTransferRate());
 
-			final float maxPossibleDamage = shockWire.getDamageAmount(e, info.connection(), totalAvailable);
+			final float maxPossibleDamage = shockWire.getDamageAmount(entity, info.connection(), totalAvailable);
 			if (maxPossibleDamage <= 0)
 				return;
-			IElectricDamageSource dmg = GET_WIRE_DAMAGE.getValue()
-					.apply(maxPossibleDamage, shockWire.getElectricSource());
-			if (!dmg.apply(e))
+			IElectricDamageSource dmg = GET_WIRE_DAMAGE.getValue().make(entity.getLevel(), maxPossibleDamage, shockWire.getElectricSource());
+			if (!dmg.apply(entity))
 				return;
 			final float actualDamage = dmg.getDamage();
-			Vec3 v = e.getLookAngle();
-			ApiUtils.knockbackNoSource(e, actualDamage / 10, v.x, v.z);
+			Vec3 v = entity.getLookAngle();
+			ApiUtils.knockbackNoSource(entity, actualDamage / 10, v.x, v.z);
 			//Consume energy
 			final double factor = actualDamage / maxPossibleDamage;
 			Object2DoubleMap<Connection> transferred = energyHandler.getTransferredNextTick();

@@ -42,7 +42,7 @@ public class TFShaderItem extends Item implements IShaderItem {
 		super(properties);
 	}
 
-	static final String TAG_SHADER = "shader_name";
+	public static final String TAG_SHADER = "shader_name";
 
 	@Override
 	public ShaderCase getShaderCase(ItemStack shader, ResourceLocation shaderType) {
@@ -143,14 +143,14 @@ public class TFShaderItem extends Item implements IShaderItem {
 		return 0xffffffff;
 	}
 
-	@Override
-	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-		if (this.allowedIn(tab)) {
-			for (ShaderRegistry.ShaderRegistryEntry entry : IEShaderRegistry.getAllTwilightShaders()) {
-				ItemStack stack = new ItemStack(this);
-				ItemNBTHelper.putString(stack, TAG_SHADER, entry.getName().toString());
-				items.add(stack);
-			}
-		}
-	}
+//	@Override
+//	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
+//		if (this.allowedIn(tab)) {
+//			for (ShaderRegistry.ShaderRegistryEntry entry : IEShaderRegistry.getAllTwilightShaders()) {
+//				ItemStack stack = new ItemStack(this);
+//				ItemNBTHelper.putString(stack, TAG_SHADER, entry.getName().toString());
+//				items.add(stack);
+//			}
+//		}
+//	}
 }

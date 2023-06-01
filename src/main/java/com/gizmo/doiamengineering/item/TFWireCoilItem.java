@@ -36,11 +36,4 @@ public class TFWireCoilItem extends WireCoilItem {
 
 		super.appendHoverText(stack, world, list, flag);
 	}
-
-	@Override
-	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-		if (tab == TFItems.creativeTab || tab == CreativeModeTab.TAB_SEARCH) {
-			items.add(new ItemStack(this));
-		}
-	}
 }

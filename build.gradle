@@ -12,7 +12,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     mappings channel: 'official', version: project.minecraft_version
-
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
             workingDirectory project.file('run')
@@ -50,7 +50,7 @@ minecraft {
             property 'mixin.env.disableRefMap', 'true'
 
             mods {
-                examplemod {
+                doiamengineering {
                     source sourceSets.main
                 }
             }
@@ -101,7 +101,7 @@ dependencies {
     implementation fg.deobf("teamtwilight:twilightforest:${twilight_version}:universal")
 
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-    runtimeOnly fg.deobf("curse.maven:jade-324717:3916646")
+    runtimeOnly fg.deobf("curse.maven:jade-324717:4534703")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

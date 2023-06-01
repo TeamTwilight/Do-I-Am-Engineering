@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -50,17 +49,6 @@ public class CicadaShot extends TFThrowable {
 		this.shoot(motion.x(), motion.y(), motion.z(), 2 * 1.5F, 1.0F);
 	}
 
-
-	@Override
-	public void tick() {
-		super.tick();
-	}
-
-	@Override
-	public float getLightLevelDependentMagicValue() {
-		return 1.0F;
-	}
-
 	@Override
 	public boolean isPickable() {
 		return true;
@@ -76,7 +64,6 @@ public class CicadaShot extends TFThrowable {
 		return 0.03F;
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleEntityEvent(byte id) {
 		if (id == 3) {
@@ -107,6 +94,7 @@ public class CicadaShot extends TFThrowable {
 			this.getLevel().setBlockAndUpdate(pos, TFBlocks.CICADA.get().defaultBlockState().setValue(DirectionalBlock.FACING, result.getDirection()));
 		} else {
 			ItemEntity squish = new ItemEntity(this.getLevel(), pos.getX(), pos.getY(), pos.getZ(), Items.GRAY_DYE.getDefaultInstance());
+			this.playSound(TFSounds.BUG_SQUISH.get());
 			squish.spawnAtLocation(squish.getItem());
 		}
 	}
@@ -118,7 +106,7 @@ public class CicadaShot extends TFThrowable {
 			player.setItemSlot(EquipmentSlot.HEAD, new ItemStack(TFBlocks.CICADA.get()));
 			if (!TFConfig.CLIENT_CONFIG.silentCicadas.get()) player.playSound(TFSounds.CICADA.get(), 1.0F, 1.0F);
 		} else {
-			result.getEntity().hurt(new IndirectEntityDamageSource("cicada", this, null), 2);
+			result.getEntity().hurt(this.damageSources().source(ModRegistry.CICADA), 2);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-07T22:16:35.1852302	Tags for minecraft:entity_type
+// 1.19.4	2023-05-16T09:45:39.9654835	Tags for minecraft:entity_type mod id doiamengineering
 2a10782564210113aed26ad9cd472c8c4bbc2fab data/immersiveengineering/tags/entity_types/shaderbag/blacklist.json
 1ebfb2a9ca69c950d60a95d9b994025e22d41cb7 data/minecraft/tags/entity_types/impact_projectiles.json
 1ebfb2a9ca69c950d60a95d9b994025e22d41cb7 data/twilightforest/tags/entity_types/dont_kill_bugs.json

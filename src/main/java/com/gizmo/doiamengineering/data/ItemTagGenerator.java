@@ -3,17 +3,20 @@ package com.gizmo.doiamengineering.data;
 import blusunrize.immersiveengineering.api.IETags;
 import com.gizmo.doiamengineering.DoIAmEngineering;
 import com.gizmo.doiamengineering.ModRegistry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.init.TFItems;
+
+import java.util.concurrent.CompletableFuture;
 
 public class ItemTagGenerator extends ItemTagsProvider {
 
@@ -37,12 +40,12 @@ public class ItemTagGenerator extends ItemTagsProvider {
 	public static final TagKey<Item> IRONWOOD_WIRES = ItemTags.create(new ResourceLocation("forge", "wires/ironwood"));
 	public static final TagKey<Item> KNIGHTMETAL_WIRES = ItemTags.create(new ResourceLocation("forge", "wires/knightmetal"));
 
-	public ItemTagGenerator(DataGenerator generator, BlockTagsProvider blockTags, @Nullable ExistingFileHelper helper) {
-		super(generator, blockTags, DoIAmEngineering.MODID, helper);
+	public ItemTagGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> future, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper helper) {
+		super(output, future, blockTags, DoIAmEngineering.MODID, helper);
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		tag(FIERY_DUSTS).add(ModRegistry.FIERY_DUST.get());
 		tag(IRONWOOD_DUSTS).add(ModRegistry.IRONWOOD_DUST.get());
 		tag(KNIGHTMETAL_DUSTS).add(ModRegistry.KNIGHTMETAL_DUST.get());

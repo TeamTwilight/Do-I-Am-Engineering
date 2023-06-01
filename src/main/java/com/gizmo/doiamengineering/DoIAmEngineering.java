@@ -7,17 +7,23 @@ import blusunrize.immersiveengineering.api.wires.WireApi;
 import blusunrize.immersiveengineering.api.wires.WireType;
 import blusunrize.immersiveengineering.api.wires.localhandlers.LocalNetworkHandler;
 import blusunrize.immersiveengineering.common.register.IEBlocks;
+import blusunrize.immersiveengineering.common.register.IEItems;
+import blusunrize.immersiveengineering.common.util.ItemNBTHelper;
 import com.gizmo.doiamengineering.entity.CicadaShot;
 import com.gizmo.doiamengineering.item.TFShaderBagItem;
+import com.gizmo.doiamengineering.item.TFShaderItem;
 import com.gizmo.doiamengineering.util.wires.FieryWireType;
 import com.gizmo.doiamengineering.util.wires.IronwoodWireType;
 import com.gizmo.doiamengineering.util.wires.KnightmetalWireType;
 import com.gizmo.doiamengineering.util.wires.TFWireDamageHandler;
+import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -27,12 +33,14 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.NewRegistryEvent;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.TwilightForestMod;
 import twilightforest.init.TFBlocks;
@@ -53,6 +61,7 @@ public class DoIAmEngineering {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		bus.addListener(this::commonSetup);
+		bus.addListener(this::injectItemsIntoTabs);
 		bus.addListener(EventPriority.HIGHEST, this::hackyShaderBagRegistry);
 		ShaderRegistry.rarityWeightMap.put(TwilightForestMod.getRarity(), 1);
 
@@ -69,7 +78,47 @@ public class DoIAmEngineering {
 	// I COULD just use each rarity value, but that will register shader bags for other mods that have a rarity. If they dont have IE compat, who knows what that will do.
 	private void hackyShaderBagRegistry(NewRegistryEvent event) {
 		for (Rarity rarity : ShaderRegistry.rarityWeightMap.keySet()) {
-			ModRegistry.SHADER_BAGS.put(rarity, ModRegistry.ITEMS.register("shader_bag_" + rarity.name().toLowerCase(Locale.ROOT).replace(':', '_'), () -> new TFShaderBagItem(rarity, new Item.Properties().tab(TFItems.creativeTab))));
+			ModRegistry.SHADER_BAGS.put(rarity, ModRegistry.ITEMS.register("shader_bag_" + rarity.name().toLowerCase(Locale.ROOT).replace(':', '_'), () -> new TFShaderBagItem(rarity, new Item.Properties())));
+		}
+	}
+
+	private void injectItemsIntoTabs(CreativeModeTabEvent.BuildContents event) {
+		if (event.getTab().getDisplayName().getContents() instanceof TranslatableContents contents) {
+			if (contents.getKey().equals("itemGroup.twilightforest.items")) {
+				event.getEntries().putBefore(new ItemStack(TFItems.RAW_IRONWOOD.get()), new ItemStack(ModRegistry.IRONWOOD_NUGGET.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(TFItems.IRONWOOD_INGOT.get()), new ItemStack(ModRegistry.IRONWOOD_PLATE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(TFItems.IRONWOOD_INGOT.get()), new ItemStack(ModRegistry.IRONWOOD_DUST.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(TFItems.KNIGHTMETAL_INGOT.get()), new ItemStack(ModRegistry.KNIGHTMETAL_PLATE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(TFItems.KNIGHTMETAL_INGOT.get()), new ItemStack(ModRegistry.KNIGHTMETAL_DUST.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putBefore(new ItemStack(TFItems.FIERY_INGOT.get()), new ItemStack(ModRegistry.FIERY_NUGGET.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(TFItems.FIERY_INGOT.get()), new ItemStack(ModRegistry.FIERY_PLATE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(TFItems.FIERY_INGOT.get()), new ItemStack(ModRegistry.FIERY_DUST.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+
+				for (ShaderRegistry.ShaderRegistryEntry entry : IEShaderRegistry.getAllTwilightShaders()) {
+					ItemStack stack = new ItemStack(ModRegistry.SHADER.get());
+					ItemNBTHelper.putString(stack, TFShaderItem.TAG_SHADER, entry.getName().toString());
+					event.accept(stack);
+				}
+
+				for (RegistryObject<Item> shaderBag : ModRegistry.SHADER_BAGS.values()) {
+					event.accept(shaderBag.get());
+				}
+			}
+			//I HATE this!
+			//why doesn't IE use a translatable display name like every other tab does? What the actual fuck?
+		} else if (event.getTab().getDisplayName().getContents() instanceof LiteralContents contents) {
+			if (contents.text().equals("Immersive Engineering")) {
+				event.getEntries().putAfter(new ItemStack(IEItems.Misc.WIRE_COILS.get(WireType.COPPER).get()), new ItemStack(ModRegistry.IRONWOOD_WIRE_COIL.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(IEItems.Misc.WIRE_COILS.get(WireType.ELECTRUM).get()), new ItemStack(ModRegistry.KNIGHTMETAL_WIRE_COIL.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(IEItems.Misc.WIRE_COILS.get(WireType.STEEL).get()), new ItemStack(ModRegistry.FIERY_WIRE_COIL.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(IEItems.Ingredients.STICK_STEEL), new ItemStack(ModRegistry.FIERY_ROD.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(IEItems.Ingredients.STICK_STEEL), new ItemStack(ModRegistry.KNIGHTMETAL_ROD.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(IEItems.Ingredients.STICK_STEEL), new ItemStack(ModRegistry.IRONWOOD_ROD.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(IEItems.Ingredients.WIRE_COPPER), new ItemStack(ModRegistry.IRONWOOD_WIRE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(IEItems.Ingredients.WIRE_ELECTRUM), new ItemStack(ModRegistry.KNIGHTMETAL_WIRE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+				event.getEntries().putAfter(new ItemStack(IEItems.Ingredients.WIRE_STEEL), new ItemStack(ModRegistry.FIERY_WIRE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+
+			}
 		}
 	}
 

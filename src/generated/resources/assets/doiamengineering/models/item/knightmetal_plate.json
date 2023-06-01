@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "doiamengineering:items/knightmetal_plate"
+    "layer0": "doiamengineering:item/knightmetal_plate"
   }
 }

@@ -2,7 +2,6 @@ package com.gizmo.doiamengineering.data;
 
 import com.gizmo.doiamengineering.DoIAmEngineering;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -14,10 +13,13 @@ public class DataGenerators {
 	public static void gatherData(GatherDataEvent evt) {
 		DataGenerator generator = evt.getGenerator();
 
-		generator.addProvider(true, new EntityTagGenerator(generator, evt.getExistingFileHelper()));
-		generator.addProvider(true, new ItemModelGenerator(generator, evt.getExistingFileHelper()));
-		generator.addProvider(true, new ItemTagGenerator(generator, new BlockTagsProvider(generator, DoIAmEngineering.MODID, evt.getExistingFileHelper()), evt.getExistingFileHelper()));
-		generator.addProvider(true, new LootModifierGenerator(generator));
-		generator.addProvider(true, new RecipeGenerator(generator));
+		generator.addProvider(evt.includeServer(), new EntityTagGenerator(generator.getPackOutput(), evt.getLookupProvider(), evt.getExistingFileHelper()));
+		generator.addProvider(evt.includeClient(), new ItemModelGenerator(generator.getPackOutput(), evt.getExistingFileHelper()));
+		BlockTagGenerator blockTags = new BlockTagGenerator(generator.getPackOutput(), evt.getLookupProvider(), evt.getExistingFileHelper());
+		generator.addProvider(evt.includeServer(), blockTags);
+		generator.addProvider(evt.includeServer(), new ItemTagGenerator(generator.getPackOutput(), evt.getLookupProvider(), blockTags.contentsGetter(), evt.getExistingFileHelper()));
+		generator.addProvider(evt.includeServer(), new LootModifierGenerator(generator.getPackOutput()));
+		generator.addProvider(evt.includeServer(), new RecipeGenerator(generator.getPackOutput()));
+		generator.addProvider(evt.includeServer(), new RegistryDataGenerator(generator.getPackOutput(), evt.getLookupProvider()));
 	}
 }

@@ -4,7 +4,7 @@
   "conditions": [
     {
       "condition": "forge:loot_table_id",
-      "loot_table_id": "twilightforest:structures/stronghold_boss"
+      "loot_table_id": "twilightforest:chests/stronghold_boss"
     }
   ],
   "shader_name": "doiamengineering:knight_phantom"

@@ -66,8 +66,8 @@ public class KnightmetalWireType extends WireType implements WireDamageHandler.I
 			}
 
 			living.getArmorSlots().forEach(stack -> {
-				if (!stack.isEmpty() && (stack.getItem() instanceof ArmorItem || stack.getEquipmentSlot() != null))
-					stack.hurtAndBreak(1, living, entity1 -> entity1.broadcastBreakEvent(stack.getItem() instanceof ArmorItem armor ? armor.getSlot() : stack.getEquipmentSlot()));
+				if (!stack.isEmpty() && stack.getEquipmentSlot() != null)
+					stack.hurtAndBreak(1, living, entity1 -> entity1.broadcastBreakEvent(stack.getEquipmentSlot()));
 			});
 			return 2.0F + (living.getArmorCoverPercentage() * 4.0F);
 		}

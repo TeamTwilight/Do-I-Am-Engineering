@@ -2,20 +2,20 @@ package com.gizmo.doiamengineering.data;
 
 import com.gizmo.doiamengineering.DoIAmEngineering;
 import com.gizmo.doiamengineering.ModRegistry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.loaders.ItemLayersModelBuilder;
+import net.minecraftforge.client.model.generators.loaders.ItemLayerModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
 import static com.gizmo.doiamengineering.DoIAmEngineering.prefix;
 
 public class ItemModelGenerator extends ItemModelProvider {
-	public ItemModelGenerator(DataGenerator generator, ExistingFileHelper helper) {
-		super(generator, DoIAmEngineering.MODID, helper);
+	public ItemModelGenerator(PackOutput output, ExistingFileHelper helper) {
+		super(output, DoIAmEngineering.MODID, helper);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 	}
 
 	private ItemModelBuilder singleTex(RegistryObject<Item> item, boolean fullbright) {
-		return generated(item.getId().getPath(), fullbright, prefix("items/" + item.getId().getPath()));
+		return generated(item.getId().getPath(), fullbright, prefix("item/" + item.getId().getPath()));
 	}
 
 	private ItemModelBuilder generated(String name, boolean fullbright, ResourceLocation... layers) {
@@ -67,7 +67,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		for (int i = 0; i < layers.length; i++) {
 			builder = builder.texture("layer" + i, layers[i]);
 		}
-		if (fullbright) builder = builder.customLoader(ItemLayersModelBuilder::begin).emissive(0).end();
+		if (fullbright) builder = builder.customLoader(ItemLayerModelBuilder::begin).emissive(15, 15, 0).end();
 		return builder;
 	}
 }

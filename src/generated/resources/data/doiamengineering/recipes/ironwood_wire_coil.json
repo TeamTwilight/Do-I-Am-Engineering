@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "s": {
       "tag": "forge:rods/wooden"
@@ -16,5 +17,6 @@
   "result": {
     "count": 4,
     "item": "doiamengineering:ironwood_wire_coil"
-  }
+  },
+  "show_notification": true
 }

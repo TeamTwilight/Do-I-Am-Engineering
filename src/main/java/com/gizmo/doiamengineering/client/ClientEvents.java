@@ -46,7 +46,7 @@ public class ClientEvents {
 	}
 
 	@SubscribeEvent
-	public static void registerShaderModels(ModelEvent.BakingCompleted event) {
+	public static void registerShaderModels(ModelEvent.ModifyBakingResult event) {
 		for (Rarity rarity : ShaderRegistry.rarityWeightMap.keySet()) {
 			ResourceLocation itemRL = DoIAmEngineering.prefix("shader_bag_" + rarity.name().toLowerCase(Locale.ROOT).replace(':', '_'));
 			ModelResourceLocation mrl = new ModelResourceLocation(itemRL, "inventory");

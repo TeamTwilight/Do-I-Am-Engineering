@@ -7,7 +7,7 @@ import blusunrize.immersiveengineering.api.crafting.builders.ThermoelectricSourc
 import blusunrize.immersiveengineering.common.register.IEItems;
 import com.gizmo.doiamengineering.DoIAmEngineering;
 import com.gizmo.doiamengineering.ModRegistry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
@@ -17,18 +17,18 @@ import twilightforest.init.TFItems;
 import java.util.function.Consumer;
 
 public class RecipeGenerator extends RecipeProvider {
-	public RecipeGenerator(DataGenerator generator) {
-		super(generator);
+	public RecipeGenerator(PackOutput output) {
+		super(output);
 	}
 
 	@Override
-	protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
 
 		ThermoelectricSourceBuilder.builder(TFBlocks.FIERY_BLOCK.get())
 				.kelvin(2500)
 				.build(consumer, DoIAmEngineering.prefix("thermoelectric/fiery_block"));
 
-		ShapedRecipeBuilder.shaped(ModRegistry.FIERY_WIRE_COIL.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModRegistry.FIERY_WIRE_COIL.get(), 4)
 				.pattern(" w ")
 				.pattern("wsw")
 				.pattern(" w ")
@@ -37,7 +37,7 @@ public class RecipeGenerator extends RecipeProvider {
 				.unlockedBy("has_wire", has(ModRegistry.FIERY_WIRE.get()))
 				.save(consumer);
 
-		ShapedRecipeBuilder.shaped(ModRegistry.IRONWOOD_WIRE_COIL.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModRegistry.IRONWOOD_WIRE_COIL.get(), 4)
 				.pattern(" w ")
 				.pattern("wsw")
 				.pattern(" w ")
@@ -46,7 +46,7 @@ public class RecipeGenerator extends RecipeProvider {
 				.unlockedBy("has_wire", has(ModRegistry.IRONWOOD_WIRE.get()))
 				.save(consumer);
 
-		ShapedRecipeBuilder.shaped(ModRegistry.KNIGHTMETAL_WIRE_COIL.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModRegistry.KNIGHTMETAL_WIRE_COIL.get(), 4)
 				.pattern(" w ")
 				.pattern("wsw")
 				.pattern(" w ")
@@ -55,22 +55,22 @@ public class RecipeGenerator extends RecipeProvider {
 				.unlockedBy("has_wire", has(ModRegistry.KNIGHTMETAL_WIRE.get()))
 				.save(consumer);
 
-		ShapelessRecipeBuilder.shapeless(TFItems.FIERY_INGOT.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TFItems.FIERY_INGOT.get())
 				.requires(Ingredient.of(ModRegistry.FIERY_NUGGET.get()), 9)
 				.unlockedBy("has_nugget", has(ModRegistry.FIERY_NUGGET.get()))
 				.save(consumer, DoIAmEngineering.prefix("fiery_ingot_from_nuggets"));
 
-		ShapelessRecipeBuilder.shapeless(ModRegistry.FIERY_NUGGET.get(), 9)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModRegistry.FIERY_NUGGET.get(), 9)
 				.requires(Ingredient.of(TFItems.FIERY_INGOT.get()))
 				.unlockedBy("has_ingot", has(TFItems.FIERY_INGOT.get()))
 				.save(consumer);
 
-		ShapelessRecipeBuilder.shapeless(TFItems.IRONWOOD_INGOT.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TFItems.IRONWOOD_INGOT.get())
 				.requires(Ingredient.of(ModRegistry.IRONWOOD_NUGGET.get()), 9)
 				.unlockedBy("has_nugget", has(ModRegistry.IRONWOOD_NUGGET.get()))
 				.save(consumer, DoIAmEngineering.prefix("ironwood_ingot_from_nuggets"));
 
-		ShapelessRecipeBuilder.shapeless(ModRegistry.IRONWOOD_NUGGET.get(), 9)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModRegistry.IRONWOOD_NUGGET.get(), 9)
 				.requires(Ingredient.of(TFItems.IRONWOOD_INGOT.get()))
 				.unlockedBy("has_ingot", has(TFItems.IRONWOOD_INGOT.get()))
 				.save(consumer);
@@ -115,13 +115,13 @@ public class RecipeGenerator extends RecipeProvider {
 				.setEnergy(2400)
 				.build(consumer, DoIAmEngineering.prefix("metalpress/wires_fiery"));
 
-		ShapelessRecipeBuilder.shapeless(ModRegistry.FIERY_WIRE.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModRegistry.FIERY_WIRE.get())
 				.requires(ItemTagGenerator.FIERY_PLATES)
 				.requires(IEItems.Tools.WIRECUTTER)
 				.unlockedBy("has_fiery_ingot", has(TFItems.FIERY_INGOT.get()))
 				.save(consumer);
 
-		ShapelessRecipeBuilder.shapeless(ModRegistry.FIERY_PLATE.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModRegistry.FIERY_PLATE.get())
 				.requires(TFItems.FIERY_INGOT.get())
 				.requires(IEItems.Tools.HAMMER)
 				.unlockedBy("has_fiery_ingot", has(TFItems.FIERY_INGOT.get()))
@@ -153,13 +153,13 @@ public class RecipeGenerator extends RecipeProvider {
 				.setEnergy(2400)
 				.build(consumer, DoIAmEngineering.prefix("metalpress/wires_knightmetal"));
 
-		ShapelessRecipeBuilder.shapeless(ModRegistry.KNIGHTMETAL_WIRE.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModRegistry.KNIGHTMETAL_WIRE.get())
 				.requires(ItemTagGenerator.KNIGHTMETAL_PLATES)
 				.requires(IEItems.Tools.WIRECUTTER)
 				.unlockedBy("has_knightmetal_ingot", has(TFItems.KNIGHTMETAL_INGOT.get()))
 				.save(consumer);
 
-		ShapelessRecipeBuilder.shapeless(ModRegistry.KNIGHTMETAL_PLATE.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModRegistry.KNIGHTMETAL_PLATE.get())
 				.requires(TFItems.KNIGHTMETAL_INGOT.get())
 				.requires(IEItems.Tools.HAMMER)
 				.unlockedBy("has_knightmetal_ingot", has(TFItems.KNIGHTMETAL_INGOT.get()))
@@ -191,13 +191,13 @@ public class RecipeGenerator extends RecipeProvider {
 				.setEnergy(2400)
 				.build(consumer, DoIAmEngineering.prefix("metalpress/wires_ironwood"));
 
-		ShapelessRecipeBuilder.shapeless(ModRegistry.IRONWOOD_WIRE.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModRegistry.IRONWOOD_WIRE.get())
 				.requires(ItemTagGenerator.IRONWOOD_PLATES)
 				.requires(IEItems.Tools.WIRECUTTER)
 				.unlockedBy("has_ironwood_ingot", has(TFItems.IRONWOOD_INGOT.get()))
 				.save(consumer);
 
-		ShapelessRecipeBuilder.shapeless(ModRegistry.IRONWOOD_PLATE.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModRegistry.IRONWOOD_PLATE.get())
 				.requires(TFItems.IRONWOOD_INGOT.get())
 				.requires(IEItems.Tools.HAMMER)
 				.unlockedBy("has_ironwood_ingot", has(TFItems.IRONWOOD_INGOT.get()))
@@ -206,7 +206,7 @@ public class RecipeGenerator extends RecipeProvider {
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(
 						TFItems.FIERY_HELMET.get(), TFItems.FIERY_CHESTPLATE.get(), TFItems.FIERY_LEGGINGS.get(), TFItems.FIERY_BOOTS.get(),
-						TFItems.FIERY_SWORD.get(), TFItems.FIERY_PICKAXE.get()), ModRegistry.FIERY_NUGGET.get(), 0.1F, 200)
+						TFItems.FIERY_SWORD.get(), TFItems.FIERY_PICKAXE.get()), RecipeCategory.MISC, ModRegistry.FIERY_NUGGET.get(), 0.1F, 200)
 				.unlockedBy("has_helmet", has(TFItems.FIERY_HELMET.get())).unlockedBy("has_chestplate", has(TFItems.FIERY_CHESTPLATE.get()))
 				.unlockedBy("has_leggings", has(TFItems.FIERY_LEGGINGS.get())).unlockedBy("has_boots", has(TFItems.FIERY_BOOTS.get()))
 				.unlockedBy("has_sword", has(TFItems.FIERY_SWORD.get())).unlockedBy("has_pickaxe", has(TFItems.FIERY_PICKAXE.get()))
@@ -214,7 +214,7 @@ public class RecipeGenerator extends RecipeProvider {
 
 		SimpleCookingRecipeBuilder.blasting(Ingredient.of(
 						TFItems.FIERY_HELMET.get(), TFItems.FIERY_CHESTPLATE.get(), TFItems.FIERY_LEGGINGS.get(), TFItems.FIERY_BOOTS.get(),
-						TFItems.FIERY_SWORD.get(), TFItems.FIERY_PICKAXE.get()), ModRegistry.FIERY_NUGGET.get(), 0.1F, 100)
+						TFItems.FIERY_SWORD.get(), TFItems.FIERY_PICKAXE.get()), RecipeCategory.MISC, ModRegistry.FIERY_NUGGET.get(), 0.1F, 100)
 				.unlockedBy("has_helmet", has(TFItems.FIERY_HELMET.get())).unlockedBy("has_chestplate", has(TFItems.FIERY_CHESTPLATE.get()))
 				.unlockedBy("has_leggings", has(TFItems.FIERY_LEGGINGS.get())).unlockedBy("has_boots", has(TFItems.FIERY_BOOTS.get()))
 				.unlockedBy("has_sword", has(TFItems.FIERY_SWORD.get())).unlockedBy("has_pickaxe", has(TFItems.FIERY_PICKAXE.get()))
@@ -223,7 +223,7 @@ public class RecipeGenerator extends RecipeProvider {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(
 								TFItems.IRONWOOD_HELMET.get(), TFItems.IRONWOOD_CHESTPLATE.get(), TFItems.IRONWOOD_LEGGINGS.get(), TFItems.IRONWOOD_BOOTS.get(),
 								TFItems.IRONWOOD_SWORD.get(), TFItems.IRONWOOD_PICKAXE.get(), TFItems.IRONWOOD_AXE.get(), TFItems.IRONWOOD_SHOVEL.get(), TFItems.IRONWOOD_HOE.get()),
-						ModRegistry.IRONWOOD_NUGGET.get(), 0.1F, 200)
+						RecipeCategory.MISC, ModRegistry.IRONWOOD_NUGGET.get(), 0.1F, 200)
 				.unlockedBy("has_helmet", has(TFItems.IRONWOOD_HELMET.get())).unlockedBy("has_chestplate", has(TFItems.IRONWOOD_CHESTPLATE.get()))
 				.unlockedBy("has_leggings", has(TFItems.IRONWOOD_LEGGINGS.get())).unlockedBy("has_boots", has(TFItems.IRONWOOD_BOOTS.get()))
 				.unlockedBy("has_sword", has(TFItems.IRONWOOD_SWORD.get())).unlockedBy("has_pickaxe", has(TFItems.IRONWOOD_PICKAXE.get()))
@@ -234,7 +234,7 @@ public class RecipeGenerator extends RecipeProvider {
 		SimpleCookingRecipeBuilder.blasting(Ingredient.of(
 								TFItems.IRONWOOD_HELMET.get(), TFItems.IRONWOOD_CHESTPLATE.get(), TFItems.IRONWOOD_LEGGINGS.get(), TFItems.IRONWOOD_BOOTS.get(),
 								TFItems.IRONWOOD_SWORD.get(), TFItems.IRONWOOD_PICKAXE.get(), TFItems.IRONWOOD_AXE.get(), TFItems.IRONWOOD_SHOVEL.get(), TFItems.IRONWOOD_HOE.get()),
-						ModRegistry.IRONWOOD_NUGGET.get(), 0.1F, 100)
+						RecipeCategory.MISC, ModRegistry.IRONWOOD_NUGGET.get(), 0.1F, 100)
 				.unlockedBy("has_helmet", has(TFItems.IRONWOOD_HELMET.get())).unlockedBy("has_chestplate", has(TFItems.IRONWOOD_CHESTPLATE.get()))
 				.unlockedBy("has_leggings", has(TFItems.IRONWOOD_LEGGINGS.get())).unlockedBy("has_boots", has(TFItems.IRONWOOD_BOOTS.get()))
 				.unlockedBy("has_sword", has(TFItems.IRONWOOD_SWORD.get())).unlockedBy("has_pickaxe", has(TFItems.IRONWOOD_PICKAXE.get()))

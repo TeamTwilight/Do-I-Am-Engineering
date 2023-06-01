@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "doiamengineering:items/ironwood_wire_coil"
+    "layer0": "doiamengineering:item/ironwood_wire_coil"
   }
 }

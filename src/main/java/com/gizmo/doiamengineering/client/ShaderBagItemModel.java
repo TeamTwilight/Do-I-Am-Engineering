@@ -1,16 +1,12 @@
 package com.gizmo.doiamengineering.client;
 
-import blusunrize.immersiveengineering.client.ClientUtils;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Vector3f;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
@@ -19,10 +15,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.ForgeHooksClient;
-import org.lwjgl.opengl.GL11;
 import twilightforest.TFConfig;
 import twilightforest.TwilightForestMod;
 import twilightforest.client.TFClientEvents;
@@ -36,7 +32,7 @@ public class ShaderBagItemModel implements BakedModel {
 	protected final BakedModel delegate;
 	protected final ItemStack item;
 	private final ResourceLocation bg = TwilightForestMod.prefix("textures/items/star_burst_mask.png");
-	ModelResourceLocation backModelLocation = new ModelResourceLocation(TwilightForestMod.ID + ":trophy_minor", "inventory");
+	ModelResourceLocation backModelLocation = new ModelResourceLocation(new ResourceLocation(TwilightForestMod.ID, "trophy_minor"), "inventory");
 
 
 	public ShaderBagItemModel(BakedModel delegate, ItemStack item) {
@@ -80,18 +76,18 @@ public class ShaderBagItemModel implements BakedModel {
 	}
 
 	@Override
-	public BakedModel applyTransform(ItemTransforms.TransformType transform, PoseStack ms, boolean applyLeftHandTransform) {
+	public BakedModel applyTransform(ItemDisplayContext context, PoseStack ms, boolean applyLeftHandTransform) {
 
 		BakedModel modelBack = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getModelManager().getModel(backModelLocation);
 
-		if (transform == ItemTransforms.TransformType.GUI) {
+		if (context == ItemDisplayContext.GUI) {
 
 			Lighting.setupForFlatItems();
 			MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
 			ms.pushPose();
 
 			ms.translate(0.0F, 0.0F, -1.5F);
-			Minecraft.getInstance().getItemRenderer().render(item, ItemTransforms.TransformType.GUI, false, ms, bufferSource, 15728880, OverlayTexture.NO_OVERLAY, ForgeHooksClient.handleCameraTransforms(ms, modelBack, transform, false));
+			Minecraft.getInstance().getItemRenderer().render(this.item, ItemDisplayContext.GUI, false, ms, bufferSource, 15728880, OverlayTexture.NO_OVERLAY, ForgeHooksClient.handleCameraTransforms(ms, modelBack, context, false));
 
 			ms.popPose();
 
@@ -99,14 +95,14 @@ public class ShaderBagItemModel implements BakedModel {
 
 			ms.translate(0.0F, 0.0F, 2.0F);
 			// Rotate the lunchbox if we're in the Gui. This is a setup for the next bit of rendering.
-			ms.mulPose(Vector3f.XN.rotationDegrees(TFConfig.CLIENT_CONFIG.rotateTrophyHeadsGui.get() ? Mth.sin(TFClientEvents.rotationTicker * 0.125F) : 30));
-			ms.mulPose(Vector3f.YN.rotationDegrees(TFConfig.CLIENT_CONFIG.rotateTrophyHeadsGui.get() ? TFClientEvents.rotationTicker : 45));
-			ms.mulPose(Vector3f.ZN.rotationDegrees(TFConfig.CLIENT_CONFIG.rotateTrophyHeadsGui.get() ? Mth.sin(TFClientEvents.rotationTicker * 0.125F) : 0));
+			ms.mulPose(Axis.XN.rotationDegrees(TFConfig.CLIENT_CONFIG.rotateTrophyHeadsGui.get() ? Mth.sin(TFClientEvents.rotationTicker * 0.125F) : 30));
+			ms.mulPose(Axis.YN.rotationDegrees(TFConfig.CLIENT_CONFIG.rotateTrophyHeadsGui.get() ? TFClientEvents.rotationTicker : 45));
+			ms.mulPose(Axis.ZN.rotationDegrees(TFConfig.CLIENT_CONFIG.rotateTrophyHeadsGui.get() ? Mth.sin(TFClientEvents.rotationTicker * 0.125F) : 0));
 			ms.translate(0.0F, -0.1F, 0.0F);
 			ms.scale(1.25F, 1.25F, 1.25F);
 
 			// Render the lunchbox
-			Minecraft.getInstance().getItemRenderer().render(item, ItemTransforms.TransformType.GUI, false, ms, bufferSource, 15728880, OverlayTexture.NO_OVERLAY, ForgeHooksClient.handleCameraTransforms(ms, delegate, transform, false));
+			Minecraft.getInstance().getItemRenderer().render(this.item, ItemDisplayContext.GUI, false, ms, bufferSource, 15728880, OverlayTexture.NO_OVERLAY, ForgeHooksClient.handleCameraTransforms(ms, this.delegate, context, false));
 
 			ms.popPose();
 
@@ -167,9 +163,9 @@ public class ShaderBagItemModel implements BakedModel {
 //
 //			ms.popPose();
 
-			return ForgeHooksClient.handleCameraTransforms(ms, new DummyModel(), transform, applyLeftHandTransform);
+			return ForgeHooksClient.handleCameraTransforms(ms, new DummyModel(), context, applyLeftHandTransform);
 		} else {
-			return ForgeHooksClient.handleCameraTransforms(ms, delegate, transform, applyLeftHandTransform);
+			return ForgeHooksClient.handleCameraTransforms(ms, this.delegate, context, applyLeftHandTransform);
 		}
 	}
 
