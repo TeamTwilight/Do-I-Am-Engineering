@@ -6,8 +6,7 @@ import blusunrize.immersiveengineering.api.shader.DynamicShaderLayer;
 import blusunrize.immersiveengineering.api.shader.ShaderLayer;
 import blusunrize.immersiveengineering.api.shader.ShaderRegistry;
 import blusunrize.immersiveengineering.api.shader.impl.*;
-import com.gizmo.doiamengineering.client.ShaderManager;
-import com.gizmo.doiamengineering.client.ShaderUniform;
+import com.gizmo.doiamengineering.client.*;
 import com.gizmo.doiamengineering.util.TFShaderCaseChemthrower;
 import com.gizmo.doiamengineering.util.TFShaderCaseDrill;
 import com.gizmo.doiamengineering.util.TFShaderCaseRailgun;
@@ -26,8 +25,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import twilightforest.TwilightForestMod;
-import twilightforest.data.tags.BlockTagGenerator;
-import twilightforest.data.tags.ItemTagGenerator;
 import twilightforest.init.TFBlocks;
 import twilightforest.init.TFItems;
 
@@ -147,9 +144,9 @@ public class IEShaderRegistry {
 	// t CaseType
 	// s Suffix
 	// c Color
-	private static final ShaderLayerProvider<?> LAYER_PROVIDER = (m, t, s, c) -> new ShaderLayer(m.provideTex(t, s), c);
-	private static final ShaderLayerProvider<?> TOWER_DEVICE_SHADER_PROVIDER = (m, t, s, c) -> new ShaderConsumerLayer(ModType.TWILIGHT_FOREST.provideTex(t, "energy"), 0xFFFFFFFF, DEVICE_RED_ENERGY_TRICONSUMER, ShaderManager.Uniforms.STAR_UNIFORMS);
-	private static final ShaderLayerProvider<?> YELLOW_CIRCUIT_SHADER_PROVIDER = (m, t, s, c) -> new ShaderConsumerLayer(ModType.IMMERSIVE_ENGINEERING.provideTex(t, "circuit"), 0xFF_BA_EE_02, DEVICE_YELLOW_ENERGY_TRICONSUMER, ShaderManager.Uniforms.STAR_UNIFORMS);
+	private static final ShaderLayerFactory<?> LAYER_PROVIDER = (m, t, s, c) -> new ShaderLayer(m.provideTex(t, s), c);
+	private static final ShaderLayerFactory<?> TOWER_DEVICE_SHADER_PROVIDER = (m, t, s, c) -> new ShaderConsumerLayer(ModType.TWILIGHT_FOREST.provideTex(t, "energy"), 0xFFFFFFFF, DEVICE_RED_ENERGY_TRICONSUMER, ShaderManager.Uniforms.STAR_UNIFORMS);
+	private static final ShaderLayerFactory<?> YELLOW_CIRCUIT_SHADER_PROVIDER = (m, t, s, c) -> new ShaderConsumerLayer(ModType.IMMERSIVE_ENGINEERING.provideTex(t, "circuit"), 0xFF_BA_EE_02, DEVICE_YELLOW_ENERGY_TRICONSUMER, ShaderManager.Uniforms.STAR_UNIFORMS);
 
 	// Registering
 	private static List<ShaderRegistry.ShaderRegistryEntry> SHADERS;
@@ -162,17 +159,17 @@ public class IEShaderRegistry {
 		NONBOSSES = ImmutableList.of(
 				// MAIN COLOR, MINOR COLOR (EDGES), SECONDARY COLOR (GRIP, etc)
 
-//				registerShaderCases( "Twilight", ModType.IMMERSIVE_ENGINEERING, "1_4", RARITY,
-//						0xFF_4C_64_5B, 0xFF_28_25_3F, 0xFF_00_AA_00, 0xFF_FF_FF_FF,
-//						(m, t, s, c) -> new ShaderConsumerLayer(m.provideTex(t, s), 0xFFFFFFFF, TWILIGHT_TRICONSUMER, ShaderManager.Uniforms.STAR_UNIFORMS ))
-//						.setInfo("Twilight Forest", null, "twilightforest")
-//						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.CANOPY_SAPLING.get()), 32))				,
+				registerShaderCases( "Twilight", ModType.IMMERSIVE_ENGINEERING, "1_4", RARITY,
+						0xFF_4C_64_5B, 0xFF_28_25_3F, 0xFF_00_AA_00, 0xFF_FF_FF_FF,
+						(m, t, s, c) -> new ShaderGLLayer(m.provideTex(t, s), 0xFFFFFFFF, GLShaders.getCompositeState()))
+						.setInfo("Twilight Forest", null, "twilightforest")
+						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.CANOPY_SAPLING.get()), 32)),
 
 //				registerShaderCases( "Firefly", ModType.IMMERSIVE_ENGINEERING, "1_6", RARITY,
 //						0xFF_66_41_40, 0xFF_F5_99_2F, 0xFF_C0_FF_00, 0xFF_C0_FF_00,  LAYER_PROVIDER,
 //						(m, t, s, c) -> new ShaderConsumerLayer(ModType.IMMERSIVE_ENGINEERING.provideTex(t, "0"), 0xFFFFFFFF, FIREFLY_TRICONSUMER, ShaderManager.Uniforms.TIME_UNIFORM))
 //						.setInfo("Twilight Forest", null, "firefly")
-//						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.FIREFLY.get()), 32))				,
+//						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.FIREFLY.get()), 32)),
 
 				//TODO add a proper replication ingredient
 				registerShaderCases("Pinch Beetle", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
@@ -334,6 +331,7 @@ public class IEShaderRegistry {
 	}
 
 	// Shaderizing!
+	@Deprecated
 	private static class ShaderConsumerLayer extends DynamicShaderLayer {
 
 		private final BiConsumer<IntConsumer, Boolean> render;
@@ -379,18 +377,18 @@ public class IEShaderRegistry {
 
 	@SafeVarargs
 	@SuppressWarnings({"rawtypes", "varargs"})
-	private static ShaderRegistry.ShaderRegistryEntry registerShaderCasesTopped(String name, ModType mod, String overlayType, Rarity rarity, int bodyColor, int colorSecondary, int gripColor, int colorBlade, ShaderLayerProvider<? extends ShaderLayer>[] providers, ShaderLayerProvider<? extends ShaderLayer>... extraProviders) {
+	private static ShaderRegistry.ShaderRegistryEntry registerShaderCasesTopped(String name, ModType mod, String overlayType, Rarity rarity, int bodyColor, int colorSecondary, int gripColor, int colorBlade, ShaderLayerFactory<? extends ShaderLayer>[] providers, ShaderLayerFactory<? extends ShaderLayer>... extraProviders) {
 		ResourceLocation modName = new ResourceLocation(DoIAmEngineering.MODID, name.toLowerCase(Locale.ROOT).replace(" ", "_"));
 		ShaderRegistry.registerShader_Item(modName, rarity, gripColor, bodyColor, colorSecondary);
 
-		registerShaderCaseRevolver(modName, gripColor, bodyColor, colorBlade, rarity, provideFromProviders(mod, CaseType.REVOLVER, overlayType, colorSecondary, providers), provideFromProviders(mod, CaseType.REVOLVER, overlayType, colorSecondary, extraProviders));
-		registerShaderCaseChemthrower(modName, gripColor, bodyColor, rarity, provideFromProviders(mod, CaseType.CHEMICAL_THROWER, overlayType, colorSecondary, providers), provideFromProviders(mod, CaseType.CHEMICAL_THROWER, overlayType, colorSecondary, extraProviders));
-		registerShaderCaseDrill(modName, gripColor, bodyColor, colorBlade, rarity, provideFromProviders(mod, CaseType.DRILL, overlayType, colorSecondary, providers), provideFromProviders(mod, CaseType.DRILL, overlayType, colorSecondary, extraProviders));
-		registerShaderCaseRailgun(modName, gripColor, bodyColor, rarity, provideFromProviders(mod, CaseType.RAILGUN, overlayType, colorSecondary, providers), provideFromProviders(mod, CaseType.RAILGUN, overlayType, colorSecondary, extraProviders));
-		registerShaderCaseShield(modName, gripColor, bodyColor, rarity, provideFromProviders(mod, CaseType.SHIELD, overlayType, colorSecondary, providers), provideFromProviders(mod, CaseType.SHIELD, overlayType, colorSecondary, extraProviders));
-		registerShaderCaseMinecart(modName, gripColor, bodyColor, rarity, provideFromProviders(mod, CaseType.MINECART, overlayType, colorSecondary, providers), provideFromProviders(mod, CaseType.MINECART, overlayType + ".png", colorSecondary, extraProviders));
-		registerShaderCaseBalloon(modName, gripColor, bodyColor, rarity, provideFromProviders(mod, CaseType.BALLOON, overlayType, colorSecondary, providers), provideFromProviders(mod, CaseType.BALLOON, overlayType, colorSecondary, extraProviders));
-		registerShaderCaseBanner(modName, gripColor, bodyColor, rarity, provideFromProviders(mod, CaseType.BALLOON, overlayType, colorSecondary, providers), provideFromProviders(mod, CaseType.BANNER, overlayType, colorSecondary, extraProviders));
+		registerShaderCaseRevolver(modName, gripColor, bodyColor, colorBlade, rarity, ShaderLayerFactory.provideFromFactories(mod, CaseType.REVOLVER, overlayType, colorSecondary, providers), ShaderLayerFactory.provideFromFactories(mod, CaseType.REVOLVER, overlayType, colorSecondary, extraProviders));
+		registerShaderCaseChemthrower(modName, gripColor, bodyColor, rarity, ShaderLayerFactory.provideFromFactories(mod, CaseType.CHEMICAL_THROWER, overlayType, colorSecondary, providers), ShaderLayerFactory.provideFromFactories(mod, CaseType.CHEMICAL_THROWER, overlayType, colorSecondary, extraProviders));
+		registerShaderCaseDrill(modName, gripColor, bodyColor, colorBlade, rarity, ShaderLayerFactory.provideFromFactories(mod, CaseType.DRILL, overlayType, colorSecondary, providers), ShaderLayerFactory.provideFromFactories(mod, CaseType.DRILL, overlayType, colorSecondary, extraProviders));
+		registerShaderCaseRailgun(modName, gripColor, bodyColor, rarity, ShaderLayerFactory.provideFromFactories(mod, CaseType.RAILGUN, overlayType, colorSecondary, providers), ShaderLayerFactory.provideFromFactories(mod, CaseType.RAILGUN, overlayType, colorSecondary, extraProviders));
+		registerShaderCaseShield(modName, gripColor, bodyColor, rarity, ShaderLayerFactory.provideFromFactories(mod, CaseType.SHIELD, overlayType, colorSecondary, providers), ShaderLayerFactory.provideFromFactories(mod, CaseType.SHIELD, overlayType, colorSecondary, extraProviders));
+		registerShaderCaseMinecart(modName, gripColor, bodyColor, rarity, ShaderLayerFactory.provideFromFactories(mod, CaseType.MINECART, overlayType, colorSecondary, providers), ShaderLayerFactory.provideFromFactories(mod, CaseType.MINECART, overlayType + ".png", colorSecondary, extraProviders));
+		registerShaderCaseBalloon(modName, gripColor, bodyColor, rarity, ShaderLayerFactory.provideFromFactories(mod, CaseType.BALLOON, overlayType, colorSecondary, providers), ShaderLayerFactory.provideFromFactories(mod, CaseType.BALLOON, overlayType, colorSecondary, extraProviders));
+		registerShaderCaseBanner(modName, gripColor, bodyColor, rarity, ShaderLayerFactory.provideFromFactories(mod, CaseType.BALLOON, overlayType, colorSecondary, providers), ShaderLayerFactory.provideFromFactories(mod, CaseType.BANNER, overlayType, colorSecondary, extraProviders));
 
 		// Since shaders won't occur in a way we'd like them to, we should register any additional variants ourselves if we know of any
 		for (ShaderRegistry.IShaderRegistryMethod method : ShaderRegistry.shaderRegistrationMethods) {
@@ -402,25 +400,11 @@ public class IEShaderRegistry {
 
 	@SafeVarargs
 	@SuppressWarnings("varargs")
-	private static ShaderRegistry.ShaderRegistryEntry registerShaderCases(String name, ModType type, String overlayType, Rarity rarity, int bodyColor, int colorSecondary, int gripColor, int colorBlade, ShaderLayerProvider<? extends ShaderLayer>... providers) {
+	private static ShaderRegistry.ShaderRegistryEntry registerShaderCases(String name, ModType type, String overlayType, Rarity rarity, int bodyColor, int colorSecondary, int gripColor, int colorBlade, ShaderLayerFactory<? extends ShaderLayer>... providers) {
 		return registerShaderCasesTopped(name, type, overlayType, rarity, bodyColor, colorSecondary, gripColor, colorBlade, providers);
 	}
 
 	// Shader Case Registration helpers
-	@FunctionalInterface
-	private interface ShaderLayerProvider<T extends ShaderLayer> {
-		T get(ModType mod, CaseType type, String suffix, int color);
-	}
-
-	private static ShaderLayer[] provideFromProviders(ModType mod, CaseType type, String suffix, int color, ShaderLayerProvider<? extends ShaderLayer>[] layerProviders) {
-		ShaderLayer[] array = new ShaderLayer[layerProviders.length];
-
-		for (int i = 0; i < layerProviders.length; i++)
-			array[i] = layerProviders[i].get(mod, type, suffix, color);
-
-		return array;
-	}
-
 	@SuppressWarnings("UnusedReturnValue")
 	private static ShaderCaseRevolver registerShaderCaseRevolver(ResourceLocation name, int gripColor, int bodyColor, int bladeColor, Rarity rarity, ShaderLayer[] additionalLayers, ShaderLayer... topLayers) {
 		ImmutableList.Builder<ShaderLayer> shaderLayerBuilder = ImmutableList.builder();

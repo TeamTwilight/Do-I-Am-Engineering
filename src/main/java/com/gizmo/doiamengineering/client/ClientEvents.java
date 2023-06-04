@@ -4,7 +4,9 @@ import blusunrize.immersiveengineering.api.shader.ShaderRegistry;
 import com.gizmo.doiamengineering.DoIAmEngineering;
 import com.gizmo.doiamengineering.ModRegistry;
 import com.gizmo.doiamengineering.item.TFShaderItem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,10 +24,15 @@ import net.minecraftforge.registries.ForgeRegistries;
 import twilightforest.TwilightForestMod;
 import twilightforest.init.TFBlocks;
 
+import java.io.IOException;
 import java.util.Locale;
 
 @Mod.EventBusSubscriber(modid = DoIAmEngineering.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientEvents {
+	@SubscribeEvent
+	public static void registerShaders(RegisterShadersEvent event) throws IOException {
+		event.registerShader(new ShaderInstance(event.getResourceProvider(), DoIAmEngineering.prefix("twilight_sky"), DefaultVertexFormat.NEW_ENTITY), shader -> GLShaders.twilightSky = shader);
+	}
 
 	@SubscribeEvent
 	public static void registerShaderColors(RegisterColorHandlersEvent.Item colors) {

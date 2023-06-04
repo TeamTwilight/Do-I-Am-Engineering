@@ -4,6 +4,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 
 import java.util.function.IntSupplier;
 
+@Deprecated
 public abstract class ShaderUniform {
 
     protected final String name;
