@@ -31,6 +31,7 @@ import java.util.Locale;
 public class ClientEvents {
 	@SubscribeEvent
 	public static void registerShaders(RegisterShadersEvent event) throws IOException {
+		event.registerShader(new ShaderInstance(event.getResourceProvider(), DoIAmEngineering.prefix("emissive"), DefaultVertexFormat.NEW_ENTITY), shader -> GLShaders.emissive = shader);
 		event.registerShader(new ShaderInstance(event.getResourceProvider(), DoIAmEngineering.prefix("twilight_sky"), DefaultVertexFormat.NEW_ENTITY), shader -> GLShaders.twilightSky = shader);
 	}
 

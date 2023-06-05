@@ -145,8 +145,6 @@ public class IEShaderRegistry {
 	// s Suffix
 	// c Color
 	private static final ShaderLayerFactory<?> LAYER_PROVIDER = (m, t, s, c) -> new ShaderLayer(m.provideTex(t, s), c);
-	private static final ShaderLayerFactory<?> TOWER_DEVICE_SHADER_PROVIDER = (m, t, s, c) -> new ShaderConsumerLayer(ModType.TWILIGHT_FOREST.provideTex(t, "energy"), 0xFFFFFFFF, DEVICE_RED_ENERGY_TRICONSUMER, ShaderManager.Uniforms.STAR_UNIFORMS);
-	private static final ShaderLayerFactory<?> YELLOW_CIRCUIT_SHADER_PROVIDER = (m, t, s, c) -> new ShaderConsumerLayer(ModType.IMMERSIVE_ENGINEERING.provideTex(t, "circuit"), 0xFF_BA_EE_02, DEVICE_YELLOW_ENERGY_TRICONSUMER, ShaderManager.Uniforms.STAR_UNIFORMS);
 
 	// Registering
 	private static List<ShaderRegistry.ShaderRegistryEntry> SHADERS;
@@ -161,15 +159,15 @@ public class IEShaderRegistry {
 
 				registerShaderCases( "Twilight", ModType.IMMERSIVE_ENGINEERING, "1_4", RARITY,
 						0xFF_4C_64_5B, 0xFF_28_25_3F, 0xFF_00_AA_00, 0xFF_FF_FF_FF,
-						(m, t, s, c) -> new ShaderGLLayer(m.provideTex(t, s), 0xFFFFFFFF, GLShaders.getCompositeState()))
+						(m, t, s, c) -> new ShaderGLLayer(m.provideTex(t, s), 0xFFFFFFFF, GLShaders.getCompositeState(GLShaders::getTwilightSky)))
 						.setInfo("Twilight Forest", null, "twilightforest")
 						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.CANOPY_SAPLING.get()), 32)),
 
-//				registerShaderCases( "Firefly", ModType.IMMERSIVE_ENGINEERING, "1_6", RARITY,
-//						0xFF_66_41_40, 0xFF_F5_99_2F, 0xFF_C0_FF_00, 0xFF_C0_FF_00,  LAYER_PROVIDER,
-//						(m, t, s, c) -> new ShaderConsumerLayer(ModType.IMMERSIVE_ENGINEERING.provideTex(t, "0"), 0xFFFFFFFF, FIREFLY_TRICONSUMER, ShaderManager.Uniforms.TIME_UNIFORM))
-//						.setInfo("Twilight Forest", null, "firefly")
-//						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.FIREFLY.get()), 32)),
+				registerShaderCases( "Firefly", ModType.IMMERSIVE_ENGINEERING, "1_6", RARITY,
+						0xFF_66_41_40, 0xFF_C0_FF_00, 0xFF_F5_99_2F, 0xFF_C0_FF_00, LAYER_PROVIDER,
+						(m, t, s, c) -> new ShaderGLLayer(m.provideTex(t, s), 0xFF_C0_FF_00, GLShaders.emissiveComposite.get()))
+						.setInfo("Twilight Forest", null, "firefly")
+						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.FIREFLY.get()), 32)),
 
 				//TODO add a proper replication ingredient
 				registerShaderCases("Pinch Beetle", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
@@ -200,18 +198,18 @@ public class IEShaderRegistry {
 						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.UNDERBRICK.get(), TFBlocks.CRACKED_UNDERBRICK.get(),
 								TFBlocks.MOSSY_UNDERBRICK.get(), TFBlocks.UNDERBRICK_FLOOR.get()), 10)),
 
-//				registerShaderCasesTopped("Towerwood", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
-//						0xFF_A6_65_3A, 0xFF_F5_DA_93, 0xFF_83_5A_35, 0xFF_FF_FF_FF, new ShaderLayerProvider<?>[]{
-//						LAYER_PROVIDER, YELLOW_CIRCUIT_SHADER_PROVIDER}, TOWER_DEVICE_SHADER_PROVIDER )
-//						.setInfo("Twilight Forest", null, "towerwood")
-//						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.TOWERWOOD.get(), TFBlocks.CRACKED_TOWERWOOD.get(),
-//						TFBlocks.MOSSY_TOWERWOOD.get(), TFBlocks.ENCASED_TOWERWOOD.get()), 10))				,
+				registerShaderCases("Towerwood", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
+						0xFF_A6_65_3A, 0xFF_F5_DA_93, 0xFF_83_5A_35, 0xFF_FF_FF_FF,
+						(m, t, s, c) -> new ShaderGLLayer(ModType.IMMERSIVE_ENGINEERING.provideTex(t, "circuit"), 0xFF_BA_EE_02, GLShaders.emissiveComposite.get()), LAYER_PROVIDER )
+						.setInfo("Twilight Forest", null, "towerwood")
+						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.TOWERWOOD.get(), TFBlocks.CRACKED_TOWERWOOD.get(),
+						TFBlocks.MOSSY_TOWERWOOD.get(), TFBlocks.ENCASED_TOWERWOOD.get()), 10)),
 
-//				registerShaderCasesTopped("Carminite", ModType.TWILIGHT_FOREST, "carminite", RARITY,
-//						0xFF_72_00_00, 0xFF_FF_00_00, 0xFF_FF_00_00, 0xFF_FF_00_00, new ShaderLayerProvider<?>[]{
-//						(m, t, s, c) -> new ShaderConsumerLayer(m.provideTex(t, s), 0xFFFFFFFF, CARMINITE_TRICONSUMER, ShaderManager.Uniforms.STAR_UNIFORMS)}, TOWER_DEVICE_SHADER_PROVIDER)
-//						.setInfo("Twilight Forest", null, "carminite")
-//						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.CARMINITE.get()), 5))				,
+				registerShaderCases("Carminite", ModType.TWILIGHT_FOREST, "carminite", RARITY,
+						0xFF_72_00_00, 0xFF_FF_00_00, 0xFF_FF_00_00, 0xFF_FF_00_00,
+						(modType, t, s, c) -> new ShaderGLLayer(ModType.TWILIGHT_FOREST.provideTex(t, "energy"), 0xFF_FF_00_00, GLShaders.emissiveComposite.get()))
+						.setInfo("Twilight Forest", null, "carminite")
+						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.CARMINITE.get()), 5)),
 
 //				registerShaderCases("Auroralized", ModType.IMMERSIVE_ENGINEERING, "1_5", RARITY,
 //						0xFF_00_FF_FF, 0xFF_00_FF_00, 0xFF_00_00_FF, 0xFF_FF_FF_FF,
@@ -238,7 +236,8 @@ public class IEShaderRegistry {
 						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.KNIGHTMETAL_BLOCK.get()), 2)),
 
 				registerShaderCases("Fiery", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
-						0xFF_19_13_13, 0xFF_FD_D4_5D, 0xFF_77_35_11, 0xFF_FF_FF_FF, LAYER_PROVIDER)
+						0xFF_19_13_13, 0xFF_FD_D4_5D, 0xFF_77_35_11, 0xFF_FF_FF_FF,
+						(m, t, s, c) -> new ShaderGLLayer(m.provideTex(t, s), 0xFF_FD_D4_5D, GLShaders.emissiveComposite.get()))
 						.setInfo("Twilight Forest", null, "fiery")
 						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.FIERY_BLOCK.get()), 2)),
 
@@ -251,16 +250,10 @@ public class IEShaderRegistry {
 								TFBlocks.ENCASED_CASTLE_BRICK_TILE.get(), TFBlocks.ENCASED_CASTLE_BRICK_PILLAR.get(),
 								TFBlocks.BOLD_CASTLE_BRICK_TILE.get(), TFBlocks.BOLD_CASTLE_BRICK_PILLAR.get()), 10)),
 
-				//TODO Throbbing effect
-//				registerShaderCases("Cube of Annihilation", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
-//				0xFF_00_00_03, 0xFF_14_00_40, 0xFF_00_00_03, 0xFF_14_00_40,
-//				(m, t, s, c) -> new ShaderConsumerLayer( m.provideTex(t, s), 0xFF_14_00_40, OUTLINE_TRICONSUMER, ShaderHelper.TIME_UNIFORM))
-//				.setInfo("Twilight Forest", null, "cube_of_annihilation"),
-
 				//TODO add a proper replication ingredient
 				registerShaderCases("Cube of Annihilation", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
 						0xFF_00_00_03, 0xFF_14_00_40, 0xFF_00_00_03, 0xFF_14_00_40,
-						(m, t, s, c) -> new ShaderLayer(m.provideTex(t, s), 0xFF_14_00_40))
+						(m, t, s, c) -> new ShaderGLLayer(m.provideTex(t, s), 0xFF_14_00_40, GLShaders.emissiveComposite.get()))
 						.setInfo("Twilight Forest", null, "cube_of_annihilation")
 						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.ORE_METER.get())))
 		);
@@ -272,7 +265,7 @@ public class IEShaderRegistry {
 		listBuilder.add(
 				registerShaderCases("Quest Ram", ModType.TWILIGHT_FOREST, "streaks", RARITY,
 						0xFF_F9_E1_C8, 0xFF_9A_85_69, 0xFF_2F_2B_36, 0xFF_90_D8_EF, LAYER_PROVIDER,
-						(m, t, s, c) -> new ShaderConsumerLayer(ModType.IMMERSIVE_ENGINEERING.provideTex(t, "circuit"), 0x30_90_D8_EF, RAM_TRICONSUMER, ShaderManager.Uniforms.STAR_UNIFORMS))
+						(m, t, s, c) -> new ShaderGLLayer(ModType.IMMERSIVE_ENGINEERING.provideTex(t, "circuit"), 0x30_90_D8_EF, GLShaders.emissiveComposite.get()))
 						.setInfo("Twilight Forest", null, "quest_ram")
 						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.CRUMBLE_HORN.get()), 1)),
 
