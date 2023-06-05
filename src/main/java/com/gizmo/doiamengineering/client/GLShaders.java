@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class GLShaders extends RenderStateShard {
+    static ShaderInstance aurora;
     static ShaderInstance emissive;
     static ShaderInstance twilightSky;
 
@@ -19,6 +20,10 @@ public class GLShaders extends RenderStateShard {
     public GLShaders() {
         super(null, null, null);
         throw new UnsupportedOperationException("Do not use this constructor!");
+    }
+
+    public static ShaderInstance getAurora() {
+        return aurora;
     }
 
     public static ShaderInstance getEmissive() {

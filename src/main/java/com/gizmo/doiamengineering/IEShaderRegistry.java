@@ -211,11 +211,11 @@ public class IEShaderRegistry {
 						.setInfo("Twilight Forest", null, "carminite")
 						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFItems.CARMINITE.get()), 5)),
 
-//				registerShaderCases("Auroralized", ModType.IMMERSIVE_ENGINEERING, "1_5", RARITY,
-//						0xFF_00_FF_FF, 0xFF_00_FF_00, 0xFF_00_00_FF, 0xFF_FF_FF_FF,
-//						(m, t, s, c) -> new ShaderConsumerLayer( m.provideTex(t, s), 0xFFFFFFFF, AURORA_TRICONSUMER, ShaderManager.Uniforms.TIME_UNIFORM))
-//						.setInfo("Twilight Forest", null, "aurora")
-//						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.AURORA_BLOCK.get(), TFBlocks.AURORA_PILLAR.get(), TFBlocks.AURORA_SLAB.get()), 10))				,
+				registerShaderCases("Auroralized", ModType.IMMERSIVE_ENGINEERING, "1_5", RARITY,
+						0xFF_00_FF_FF, 0xFF_00_FF_00, 0xFF_00_00_FF, 0xFF_FF_FF_FF,
+						(m, t, s, c) -> new ShaderGLLayer(ModType.TWILIGHT_FOREST.provideTex(t, "streaks"), 0xFFFFFFFF, GLShaders.getCompositeState(GLShaders::getAurora)))
+						.setInfo("Twilight Forest", null, "aurora")
+						.setReplicationCost(() -> new IngredientWithSize(Ingredient.of(TFBlocks.AURORA_BLOCK.get(), TFBlocks.AURORA_PILLAR.get(), TFBlocks.AURORA_SLAB.get()), 10))				,
 
 				registerShaderCases("Ironwood", ModType.IMMERSIVE_ENGINEERING, "1_0", RARITY,
 						0xFF_6B_61_61, 0xFF_5F_4D_40, 0xFF_5E_57_4B, 0xFF_FF_FF_FF,
@@ -488,7 +488,6 @@ public class IEShaderRegistry {
 	}
 
 	public enum ModType {
-
 		IMMERSIVE_ENGINEERING(Lib.MODID) {
 			@Override
 			String getPath(CaseType caseType, String suffix) {

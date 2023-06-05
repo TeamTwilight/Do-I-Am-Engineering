@@ -13,10 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ModelEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.RegisterShadersEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -31,6 +28,7 @@ import java.util.Locale;
 public class ClientEvents {
 	@SubscribeEvent
 	public static void registerShaders(RegisterShadersEvent event) throws IOException {
+		event.registerShader(new ShaderInstance(event.getResourceProvider(), DoIAmEngineering.prefix("aurora"), DefaultVertexFormat.NEW_ENTITY), shader -> GLShaders.aurora = shader);
 		event.registerShader(new ShaderInstance(event.getResourceProvider(), DoIAmEngineering.prefix("emissive"), DefaultVertexFormat.NEW_ENTITY), shader -> GLShaders.emissive = shader);
 		event.registerShader(new ShaderInstance(event.getResourceProvider(), DoIAmEngineering.prefix("twilight_sky"), DefaultVertexFormat.NEW_ENTITY), shader -> GLShaders.twilightSky = shader);
 	}
