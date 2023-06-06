@@ -507,11 +507,11 @@ public class IEShaderRegistry {
 			@Override
 			String getPath(CaseType caseType, String suffix) {
 				return switch (caseType) {
-					case REVOLVER -> "items/shaders/revolver_" + suffix;
-					case CHEMICAL_THROWER -> "items/shaders/chemthrower_" + suffix;
-					case DRILL -> "items/shaders/drill_" + suffix;
-					case RAILGUN -> "items/shaders/railgun_" + suffix;
-					case SHIELD -> "items/shaders/shield_" + suffix;
+					case REVOLVER -> "item/shaders/revolver_" + suffix;
+					case CHEMICAL_THROWER -> "item/shaders/chemthrower_" + suffix;
+					case DRILL -> "item/shaders/drill_" + suffix;
+					case RAILGUN -> "item/shaders/railgun_" + suffix;
+					case SHIELD -> "item/shaders/shield_" + suffix;
 					case MINECART -> "entity/minecart_" + suffix;
 					case BALLOON -> "block/balloon_" + suffix;
 					case BANNER -> "block/banner_" + suffix;
