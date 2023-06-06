@@ -30,6 +30,7 @@ public class ClientEvents {
 	public static void registerShaders(RegisterShadersEvent event) throws IOException {
 		event.registerShader(new ShaderInstance(event.getResourceProvider(), DoIAmEngineering.prefix("aurora"), DefaultVertexFormat.NEW_ENTITY), shader -> GLShaders.aurora = shader);
 		event.registerShader(new ShaderInstance(event.getResourceProvider(), DoIAmEngineering.prefix("emissive"), DefaultVertexFormat.NEW_ENTITY), shader -> GLShaders.emissive = shader);
+		event.registerShader(new ShaderInstance(event.getResourceProvider(), DoIAmEngineering.prefix("starburst"), DefaultVertexFormat.POSITION_TEX_COLOR), shader -> GLShaders.starburst = shader);
 		event.registerShader(new ShaderInstance(event.getResourceProvider(), DoIAmEngineering.prefix("twilight_sky"), DefaultVertexFormat.NEW_ENTITY), shader -> GLShaders.twilightSky = shader);
 	}
 

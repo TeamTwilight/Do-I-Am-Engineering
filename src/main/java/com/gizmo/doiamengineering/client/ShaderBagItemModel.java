@@ -2,6 +2,7 @@ package com.gizmo.doiamengineering.client;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -13,12 +14,14 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.ForgeHooksClient;
+import org.joml.Matrix4f;
 import twilightforest.TFConfig;
 import twilightforest.TwilightForestMod;
 import twilightforest.client.TFClientEvents;
@@ -31,7 +34,6 @@ public class ShaderBagItemModel implements BakedModel {
 
 	protected final BakedModel delegate;
 	protected final ItemStack item;
-	private final ResourceLocation bg = TwilightForestMod.prefix("textures/items/star_burst_mask.png");
 	ModelResourceLocation backModelLocation = new ModelResourceLocation(new ResourceLocation(TwilightForestMod.ID, "trophy_minor"), "inventory");
 
 
@@ -109,64 +111,36 @@ public class ShaderBagItemModel implements BakedModel {
 			bufferSource.endBatch();
 			Lighting.setupFor3DItems();
 
-			//TODO later
-			// Render the star burst
-//			ms.pushPose();
-//			// Since we're in a new stack different than above rendering calls, we'll also need to re-translate.
-//			// Z value -1 puts us behind the lunchbox but in front of trophy sprite
-//			ms.translate(0.5F, 0.5F, -1.0F);
-//
-//			Tesselator tessellator = Tesselator.getInstance();
-//			BufferBuilder buffer = tessellator.getBuilder();
-//
-//			// Bind the star burst mask tex
-//			RenderSystem.setShaderTexture(0, bg);
-//
-//			// Just gonna borrow your code for a sec blu, thnx
-//			int c = ClientUtils.getDarkenedTextColour(item.getRarity().color.getColor());
-//
-//			// unpack colors
-//			float r = (c >> 16 & 0xFF) / 255.0f;
-//			float g = (c >> 8 & 0xFF) / 255.0f;
-//			float b = (c & 0xFF) / 255.0f;
-//
-//			buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
-//			buffer.vertex(-1, 1, 0)
-//					.uv(0, 1)
-//					.color(r, g, b, 1f)
-//					.endVertex();
-//			buffer.vertex(1, 1, 0)
-//					.uv(1, 1)
-//					.color(r, g, b, 1f)
-//					.endVertex();
-//			buffer.vertex(1, -1, 0)
-//					.uv(1, 0)
-//					.color(r, g, b, 1f)
-//					.endVertex();
-//			buffer.vertex(-1, -1, 0)
-//					.uv(0, 0)
-//					.color(r, g, b, 1f)
-//					.endVertex();
-//
-//			// Shader, engage!
-//			ShaderManager.useShader(ShaderManager.starburstShader, ShaderManager.Uniforms.TIME);
-//			// Blur the star burst mask
-//			GlStateManager._getTexLevelParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
-//			tessellator.end();
-//			// Deblur, so we don't blur all of the textures in rendering calls afterwards
-//			GlStateManager._getTexLevelParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
-//			// Disengage shader
-//			ShaderManager.releaseShader();
-//
-//			// reset color
-//			RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-//
-//			ms.popPose();
+			drawSquare(ms, this.item.getRarity().color.getColor(), bufferSource.getBuffer(GLShaders.starburstRendering));
 
 			return ForgeHooksClient.handleCameraTransforms(ms, new DummyModel(), context, applyLeftHandTransform);
 		} else {
 			return ForgeHooksClient.handleCameraTransforms(ms, this.delegate, context, applyLeftHandTransform);
 		}
+	}
+
+	private static void drawSquare(PoseStack stack, int color, VertexConsumer buffer) {
+		float r = FastColor.ARGB32.red(color) / 255.0f;
+		float g = FastColor.ARGB32.green(color) / 255.0f;
+		float b = FastColor.ARGB32.blue(color) / 255.0f;
+
+		Matrix4f poseMatrix = stack.last().pose();
+		buffer.vertex(poseMatrix, -0.5f, 0.5f, 0)
+				.uv(-0.5f, 0.5f)
+				.color(r, g, b, 1f)
+				.endVertex();
+		buffer.vertex(poseMatrix, 0.5f, 0.5f, 0)
+				.uv(0.5f, 0.5f)
+				.color(r, g, b, 1f)
+				.endVertex();
+		buffer.vertex(poseMatrix, 0.5f, -0.5f, 0)
+				.uv(0.5f, -0.5f)
+				.color(r, g, b, 1f)
+				.endVertex();
+		buffer.vertex(poseMatrix, -0.5f, -0.5f, 0)
+				.uv(-0.5f, -0.5f)
+				.color(r, g, b, 1f)
+				.endVertex();
 	}
 
 	//dummy class to kill off item rendering in the GUI

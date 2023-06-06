@@ -1,6 +1,9 @@
 package com.gizmo.doiamengineering.client;
 
 import com.google.common.base.Suppliers;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
@@ -13,7 +16,24 @@ import java.util.function.Supplier;
 public class GLShaders extends RenderStateShard {
     static ShaderInstance aurora;
     static ShaderInstance emissive;
+    static ShaderInstance starburst;
     static ShaderInstance twilightSky;
+
+    public static final RenderType starburstRendering = RenderType.create("bag_starburst", DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder()
+            .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+            .setShaderState(new ShaderStateShard(GLShaders::getStarburst))
+            .setCullState(RenderStateShard.NO_CULL)
+            .setLightmapState(NO_LIGHTMAP)
+            .setOverlayState(NO_OVERLAY)
+            .createCompositeState(false));
+
+    public static final RenderType simpleRendering = RenderType.create("simple_starburst", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder()
+            .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+            .setShaderState(new ShaderStateShard(GameRenderer::getPositionColorShader))
+            .setCullState(RenderStateShard.NO_CULL)
+            .setLightmapState(NO_LIGHTMAP)
+            .setOverlayState(NO_OVERLAY)
+            .createCompositeState(false));
 
     public static Supplier<RenderType.CompositeState> emissiveComposite = Suppliers.memoize(() -> getCompositeState(GLShaders::getEmissive));
 
@@ -28,6 +48,10 @@ public class GLShaders extends RenderStateShard {
 
     public static ShaderInstance getEmissive() {
         return emissive;
+    }
+
+    public static ShaderInstance getStarburst() {
+        return starburst;
     }
 
     public static ShaderInstance getTwilightSky() {
