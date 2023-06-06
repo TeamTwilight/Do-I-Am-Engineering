@@ -36,10 +36,15 @@ public class GLShaders extends RenderStateShard {
 
     @NotNull
     public static RenderType.CompositeState getCompositeState(Supplier<ShaderInstance> shader) {
+        return getCompositeState(shader, false);
+    }
+
+    @NotNull
+    public static RenderType.CompositeState getCompositeState(Supplier<ShaderInstance> shader, boolean transparent) {
         return RenderType.CompositeState.builder()
                 .setTextureState(MultiTextureStateShard.builder().add(InventoryMenu.BLOCK_ATLAS, false, false).add(TheEndPortalRenderer.END_PORTAL_LOCATION, false, false).build())
                 .setShaderState(new ShaderStateShard(shader))
-                .setTransparencyState(NO_TRANSPARENCY)
+                .setTransparencyState(transparent ? TRANSLUCENT_TRANSPARENCY : NO_TRANSPARENCY)
                 .setCullState(NO_CULL)
                 .setLightmapState(NO_LIGHTMAP)
                 .setOverlayState(NO_OVERLAY)
