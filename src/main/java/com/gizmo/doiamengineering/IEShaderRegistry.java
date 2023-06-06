@@ -67,79 +67,6 @@ public class IEShaderRegistry {
 //	//public static final ResourceLocation PROCESSED_MINECART_LAYER = new ResourceLocation(TwilightForestMod.ID, "textures/items/immersiveengineering/minecart_processed.png");
 //	public static final ResourceLocation PROCESSED_BALLOON_LAYER = new ResourceLocation(TwilightForestMod.ID, "blocks/immersiveengineering/balloon_processed");
 
-	private static final ResourceLocation TEXTURE_STARS = new ResourceLocation("textures/entity/end_portal.png");
-
-	private static final BiConsumer<IntConsumer, Boolean> TWILIGHT_TRICONSUMER = (shaderCallback, pre) -> {
-		if (pre) {
-			ShaderManager.useShader(ShaderManager.twilightSkyShader, shaderCallback);
-			ARBShaderObjects.glCreateShaderObjectARB(ARBShaderObjects.GL_INT_VEC2_ARB);
-			RenderSystem._setShaderTexture(0, TEXTURE_STARS);
-		} else {
-			ShaderManager.releaseShader();
-		}
-		ARBShaderObjects.glCreateShaderObjectARB(ARBShaderObjects.GL_OBJECT_SHADER_SOURCE_LENGTH_ARB);
-		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
-	};
-
-	// TODO There's got to be a better way!
-	private static final BiConsumer<IntConsumer, Boolean> FIREFLY_TRICONSUMER = (shaderCallback, pre) -> {
-		if (pre) ShaderManager.useShader(ShaderManager.fireflyShader, shaderCallback);
-		else ShaderManager.releaseShader();
-	};
-
-	private static final BiConsumer<IntConsumer, Boolean> CARMINITE_TRICONSUMER = (shaderCallback, pre) -> {
-		if (pre) ShaderManager.useShader(ShaderManager.carminiteShader, shaderCallback);
-		else ShaderManager.releaseShader();
-	};
-
-	private static final BiConsumer<IntConsumer, Boolean> DEVICE_RED_ENERGY_TRICONSUMER = (shaderCallback, pre) -> {
-		if (pre) ShaderManager.useShader(ShaderManager.towerDeviceShader, shaderCallback);
-		else ShaderManager.releaseShader();
-	};
-
-	private static final BiConsumer<IntConsumer, Boolean> DEVICE_YELLOW_ENERGY_TRICONSUMER = (shaderCallback, pre) -> {
-		if (pre) {
-			GlStateManager._getTexLevelParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
-			ShaderManager.useShader(ShaderManager.yellowCircuitShader, shaderCallback);
-		} else {
-			ShaderManager.releaseShader();
-			GlStateManager._getTexLevelParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
-		}
-	};
-
-	private static final BiConsumer<IntConsumer, Boolean> AURORA_TRICONSUMER = (shaderCallback, pre) -> {
-		if (pre) ShaderManager.useShader(ShaderManager.auroraShader, shaderCallback);
-		else ShaderManager.releaseShader();
-	};
-
-	private static final BiConsumer<IntConsumer, Boolean> RAM_TRICONSUMER = (shaderCallback, pre) -> {
-		if (pre) Minecraft.getInstance().gameRenderer.lightTexture().turnOffLightLayer();
-		else Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
-	};
-
-	//private static final BiConsumer<IntConsumer, Boolean> OUTLINE_TRICONSUMER = (shaderCallback, pre) -> {
-	//    if (pre) {
-	//        GlStateManager.pushMatrix();
-	//    } else {
-	//        GlStateManager.popMatrix();
-	//    }
-	//    //if (pre) {
-	//    //    //GlStateManager.pushMatrix();
-	//    //    //GlStateManager.scalef(1.05f, 1.05f, 1.05f);
-	//    //    GlStateManager.enableCull();
-	//    //    //GL11.glFrontFace(GL11.GL_CW);
-	//    //    GlStateManager.cullFace(GlStateManager.CullFace.FRONT);
-	//    //    ShaderHelper.useShader(ShaderHelper.outlineShader, shaderCallback);
-	//    //} else {
-	//    //    ShaderHelper.releaseShader();
-	//    //    GlStateManager.cullFace(GlStateManager.CullFace.BACK);
-	//    //    //GL11.glFrontFace(GL11.GL_CCW);
-	//    //    GlStateManager.disableCull();
-	//    //    //GlStateManager.scalef(0.8333f, 0.8333f, 0.8333f);
-	//    //    //GlStateManager.popMatrix();
-	//    //}
-	//};
-
 	// m Mod
 	// t CaseType
 	// s Suffix
@@ -321,51 +248,6 @@ public class IEShaderRegistry {
 
 	public static List<ShaderRegistry.ShaderRegistryEntry> getAllNonbossShaders() {
 		return NONBOSSES;
-	}
-
-	// Shaderizing!
-	@Deprecated
-	private static class ShaderConsumerLayer extends DynamicShaderLayer {
-
-		private final BiConsumer<IntConsumer, Boolean> render;
-		private final IntConsumer shaderCallback;
-
-		ShaderConsumerLayer(ResourceLocation texture, int colour, BiConsumer<IntConsumer, Boolean> render, ShaderUniform[] shaderParams) {
-			super(texture, colour);
-			this.render = render;
-
-			shaderCallback = shader -> {
-				for (ShaderUniform param : shaderParams) {
-					param.assignUniform(shader);
-				}
-			};
-		}
-
-		@Override
-		public RenderType getRenderType(RenderType baseType) {
-			if (this.render == null) {
-				return baseType;
-			} else {
-				return new RenderType(
-						"shader_" + baseType + render,
-						DefaultVertexFormat.BLOCK,
-						VertexFormat.Mode.QUADS,
-						256,
-						false,
-						true,
-						() -> {
-							baseType.setupRenderState();
-							render.accept(shaderCallback, true);
-						},
-						() -> {
-							render.accept(shaderCallback, false);
-							baseType.clearRenderState();
-						}
-				) {
-
-				};
-			}
-		}
 	}
 
 	@SafeVarargs
